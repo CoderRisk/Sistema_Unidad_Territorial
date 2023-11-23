@@ -1,0 +1,100 @@
+{% extends 'core/base.html' %}
+
+{% load static %}
+
+
+{% block extrastyle %}
+    <link rel="stylesheet" href="{% static 'core/css/actividades/eliminarActividad.css' %}">
+{% endblock extrastyle %}
+    
+
+
+{% block Headerborder %}
+<div class="header__navegacion">
+    <ul class="header__lista">
+        <li class="header__item">
+            <a class="header__link" aria-current="page" href="{% url 'inicio' %}">Inicio</a>
+        </li>
+        <li class="header__item">
+            <a class="header__link" aria-current="page"
+                href="{% url 'listar_noticia' %}">Noticias</a>
+        </li>
+        <li class="header__item">
+            <a class="header__link" aria-current="page"
+                href="{% url 'listar_proyectos' %}">Proyectos</a>
+        </li>
+        <li class="header__item">
+            <a class="header__link" aria-current="page"
+                href="{% url 'listar_actividad' %}">Actividades</a>
+        </li>
+    </ul>
+</div>
+{% endblock Headerborder %}
+
+
+{% block content %}
+<main class="main container">
+
+    <div class="volver">
+        <a href="{% url 'listar_actividad' %}" class="volver__link">
+            <img class="volver__imagen" src="{% static 'core/img/flecha-izquierda.svg' %}" alt="">
+            <p class="volver__texto">Volver</p>
+        </a>
+    </div>
+
+    <h1 class="main__titulo">Eliminar Actividad</h1>
+    
+    <p class="main__subtitulo">¿Estás seguro de que deseas eliminar el actividad "<span class="main__span">{{actividades.nombre_actividad}}</span>"?</p>
+    
+    <form class="formulario" method="post"> {% csrf_token %}
+        <div class="formulario__picture">
+            
+            {% if actividades.imagen_actividad %}
+                <img class="formulario__imagen" src="{{ actividades.imagen_actividad.url }}" alt="">    
+            {% else %}
+                <img class="formulario__imagen" src="{% static 'core/img/noDisponible.png' %}" alt="imagen no disponible">
+            {% endif %}
+                
+        </div>
+        <div class="formulario__botones">
+            <button type="submit" class="formulario__eliminar">
+                <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 448 512">
+                    <path d="M135.2 17.7L128 32H32C14.3 32 0 46.3 0 64S14.3 96 32 96H416c17.7 0 32-14.3 32-32s-14.3-32-32-32H320l-7.2-14.3C307.4 6.8 296.3 0 284.2 0H163.8c-12.1 0-23.2 6.8-28.6 17.7zM416 128H32L53.2 467c1.6 25.3 22.6 45 47.9 45H346.9c25.3 0 46.3-19.7 47.9-45L416 128z"/>
+                </svg>
+                Confirmar Eliminación
+            </button>
+            <a href="{% url 'listar_actividad' %}" class="formulario__cancelar">Cancelar</a>
+        </div>
+    </form>
+</main>
+{% endblock content %}
+    
+
+{% block Footerborder %}
+
+
+        <div class="header__navegacion">
+            <ul class="header__lista">
+                <li class="header__item">
+                    <a class="header__link" aria-current="page" href="{% url 'inicio' %}">
+                        <span>Inicio</span></a>
+                </li>
+                <li class="header__item">
+                    <a class="header__link" aria-current="page"
+                        href="{% url 'listar_noticia' %}">
+                        <span>Noticias</span></a>
+                </li>
+                <li class="header__item">
+                    <a class="header__link" aria-current="page"
+                        href="{% url 'listar_proyectos' %}">
+                        <span>Proyectos</span></a>
+                </li>
+                <li class="header__item">
+                    <a class="header__link" aria-current="page"
+                        href="{% url 'listar_actividad' %}">
+                        <span>Actividades</span></a>
+                </li>
+            </ul>
+        </div>
+   
+{% endblock Footerborder %}

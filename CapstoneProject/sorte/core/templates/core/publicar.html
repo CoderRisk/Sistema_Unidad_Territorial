@@ -1,0 +1,102 @@
+{% extends 'core/base.html' %}
+
+{% load static %}
+
+{% block extrastyle %}
+    <link rel="stylesheet" href="{% static 'core/css/dashboard/inicio.css' %}">
+{% endblock extrastyle %}
+    
+
+{% block Headerborder %}
+    <div class="header__navegacion">
+        <ul class="header__lista">
+            <li class="header__item">
+                <a class="header__link" aria-current="page" href="{% url 'inicio' %}">Inicio</a>
+            </li>
+            <li class="header__item">
+                <a class="header__link" aria-current="page"
+                    href="{% url 'listar_noticia' %}">Noticias</a>
+            </li>
+            <li class="header__item">
+                <a class="header__link" aria-current="page"
+                    href="{% url 'listar_proyectos' %}">Proyectos</a>
+            </li>
+            <li class="header__item">
+                <a class="header__link" aria-current="page"
+                    href="{% url 'listar_actividad' %}">Actividades</a>
+            </li>
+        </ul>
+    </div>
+{% endblock Headerborder %}
+
+
+{% block content %}
+    <main class="main">
+        <div class="main__contenedor container">
+            <aside class="main__aside">
+                <div class="main__titulo">
+                    <h2 class="main__h2">Empieza a Publicar</h2>
+                </div>
+                <div class="main__navegacion">
+                    <div class="main__enlace">
+                        <a class="main__link" href="{% url 'crear_proyecto' %}">Proyecto</a>
+                        <a class="main__link" href="{% url 'crear_actividad' %}">Actividad</a>
+                        <a class="main__link" href="{% url 'crear_noticia' %}">Noticia</a>
+                    </div>
+                </div>
+            </aside>
+            <div class="main__portal">
+                <div class="main__titular">
+                    <h2 class="main__h2">Comparta sus ideas e informe a la comunidad.</h2>
+    
+                </div>
+                <div class="main__informacion">
+                    
+                    <div class="main__grid">
+                        <h3 class="main__title">Crear una publicación.</h3>
+                        <img class="main__imagen" src="{% static 'core/img/post.svg' %}" alt="">
+                        <p class="main__contenido">Antes de publicar, considere una idea impactante y visualmente intuitiva para la comunidad. Dispone de tres categorías para presentar su decisión y concepto.</p>
+                    </div>
+                        
+                </div>
+    
+            </div>
+        </div>
+    </main>
+{% endblock content %}
+
+
+
+{% block Footerborder %}
+
+
+    <div class="header__navegacion">
+        <ul class="header__lista">
+            <li class="header__item">
+                <a class="header__link" aria-current="page" href="{% url 'inicio' %}">
+                    <span>Inicio</span></a>
+            </li>
+            <li class="header__item">
+                <a class="header__link" aria-current="page"
+                    href="{% url 'listar_noticia' %}">
+                    <span>Noticias</span></a>
+            </li>
+            <li class="header__item">
+                <a class="header__link" aria-current="page"
+                    href="{% url 'listar_proyectos' %}">
+                    <span>Proyectos</span></a>
+            </li>
+            <li class="header__item">
+                <a class="header__link" aria-current="page"
+                    href="{% url 'listar_actividad' %}">
+                    <span>Actividades</span></a>
+            </li>
+        </ul>
+    </div>
+
+
+ 
+    
+{% endblock Footerborder %}
+    
+    

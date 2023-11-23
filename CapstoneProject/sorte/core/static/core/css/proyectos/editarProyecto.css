@@ -1,0 +1,229 @@
+.main__titulo{
+    text-align: center;
+    margin: 4.375rem auto;
+}
+
+/* volver */
+
+.volver{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin: 2.5rem 0 0 0;
+}
+
+.volver__link{
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    color: var(--color-black);
+    align-items: center;
+    background-color: #fff;
+    transition: background-color .3s ease, color .3s ease;
+    border-radius: 1.25rem;
+    box-shadow: .0625rem .0625rem .5rem black;
+    padding: .3125rem;
+    margin: 1.25rem auto;
+    justify-content: center;
+    width: max-content;
+}
+
+.volver__link:hover{
+    background-color: var(--color-azul);
+    color: #fff;
+    transition: background-color .3s ease, color .3s ease;
+}
+
+.volver__imagen{
+    width: 1.5625rem;
+    margin: 0;
+}
+
+.volver__texto{
+    margin: .625rem 1.875rem;
+}
+
+/* Formulario */
+
+.formulario{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+.formulario__flex:nth-child(3) .formulario__file{
+    display: none;
+}
+
+.formulario__flex:nth-child(3) .formulario__label{
+    background-color: var(--color-azul);
+    color: var(--color-white);
+    padding: .625rem 1.25rem;
+    cursor: pointer;
+    margin: .3125rem auto;
+    border-radius: .3125rem;
+    transition: background-color .3s ease;
+}
+
+.formulario__flex:nth-child(3) .formulario__label:hover{
+    background-color: var(--color-azul-hover);
+    transition: background-color .3s ease;
+}
+
+.formulario__flex{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    position: relative;
+    margin: 1.25rem 0;
+}
+
+.main__titulo{
+    text-align: center;
+    margin: 4.375rem 0;
+}
+
+.formulario__imagen{
+    width: 100%;
+    margin: 0 auto;
+    border-radius: .625rem;
+}
+
+.formulario__flex:not(:nth-child(3)) .formulario__label{
+    position: absolute;
+    top: -0.55rem;
+    left: .5rem;
+    background-color: var(--color-white);
+    font-size: .875rem;
+}
+
+.formulario__input,
+.formulario__area{
+    border: none;
+    border: .0625rem solid black;
+    border-radius: .625rem;
+    padding: .625rem;
+    outline: none;
+}
+
+.formulario__guardar{
+    border: none;
+    background: rgb(57, 203, 81);
+    background: linear-gradient(90deg, rgb(57, 203, 81, 1) 0%, rgb(76, 231, 102) 100%, rgb(38, 221, 68) 100%);
+    color: #fff;
+    padding: .625rem 1.25rem;
+    border-radius: .625rem;
+    box-shadow: .125rem .125rem .3125rem rgba(21, 251, 0, 0.372);
+    cursor: pointer;
+    text-decoration: none;
+    margin: 1.25rem auto;
+    transition: transform .3s ease;
+    text-align: center;
+}
+
+.formulario__guardar:hover{
+    transform: scale(1.2);
+    transition: transform .3s ease;
+}
+
+.error{
+    box-shadow: 0 0 .1875rem red;
+    background-color: #f6f4e3;
+    border-left: .3125rem solid red;
+    border-radius: .3125rem;
+    margin: .3125rem 0 0 0;
+    display: flex;
+    flex-direction: column;
+    padding: .3125rem;
+    position: relative;
+}
+
+.error::before{
+    content: '';
+    background-color: #ff0505;
+    clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+    width: .4375rem;
+    height: .4375rem;
+    position: absolute;
+    left: .3125rem;
+    top: -0.4375rem;
+}
+
+.error__mensaje{
+    color: red;
+    font-size: .75rem;
+}
+
+.errorlist{
+    list-style:decimal;
+    padding: 0 0 0 2.5rem;
+    margin: 0;
+    color: red;
+    font-size: .625rem;
+}
+
+.errorlist li{
+    margin: .625rem auto;
+}
+
+
+@media (min-width: 576px) { 
+
+
+    .formulario__flex:not(:nth-child(2)){
+        width: 70%;
+    }
+
+    .formulario__imagen{
+        width: 70%;
+    }
+
+    .volver__link{
+        flex-direction: row;
+    }
+
+    .volver__imagen{
+        width: 1.5625rem;
+        margin: 0 0 0 1.25rem;
+    }
+}
+
+
+@media (min-width: 768px) { 
+    .formulario__flex:not(:nth-child(2)){
+        width: 50%;
+    }
+
+    .formulario__imagen{
+        width: 50%;
+    }
+
+    .volver{
+        flex-direction: row;
+    }
+
+    .volver__link{
+        margin: 0;
+    }
+
+}
+
+@media (min-width: 1000px) { 
+    .formulario__flex:not(:nth-child(2)){
+        max-width: 27.5rem;
+    }
+
+    .formulario__imagen{
+        max-width: 21.25rem;
+    }
+
+    .error__mensaje{
+        font-size: .875rem;
+        margin: .1875rem 0 0 0;
+    }
+    
+    .errorlist{
+        font-size: .75rem;
+    }
+}

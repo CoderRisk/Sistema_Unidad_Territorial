@@ -1,0 +1,107 @@
+{% extends 'core/base.html' %}
+
+{% load static %}
+
+
+{% block extrastyle %}
+    <link rel="stylesheet" href="{% static 'core/css/miembroJDV/actualizar/actualizar.css' %}">
+{% endblock extrastyle %}
+    
+
+{% block Headerborder %}
+    <div class="header__navegacion">
+        <ul class="header__lista">
+            <li class="header__item">
+                <a class="header__link" aria-current="page" href="{% url 'inicio' %}">Inicio</a>
+            </li>
+            <li class="header__item">
+                <a class="header__link" aria-current="page"
+                    href="{% url 'listar_noticia' %}">Noticias</a>
+            </li>
+            <li class="header__item">
+                <a class="header__link" aria-current="page"
+                    href="{% url 'listar_proyectos' %}">Proyectos</a>
+            </li>
+            <li class="header__item">
+                <a class="header__link" aria-current="page"
+                    href="{% url 'listar_actividad' %}">Actividades</a>
+            </li>
+        </ul>
+    </div>
+{% endblock Headerborder %}
+
+{% block content %}
+
+<main class="main container">
+    <div class="main__titular">
+        <h2 class="main__titulo">Actualiza tus datos</h2>
+    </div>
+    <form class="formulario" action="" method="POST"> {% csrf_token %}
+    
+        <div class="formulario__grid">
+            <div class="formulario__contenedor">
+                <div class="formulario__picture">
+                    <img class="formulario__imagen" src="{% static 'core/img/edit.svg' %}" alt="imagen edit">
+                </div>
+            </div>
+            <div class="formulario__campos">
+                <div class="formulario__titular">
+                    <h3 class="formulario__titulo">Datos Personales</h3>
+                </div>
+                <div class="formulario__contain">
+                    <div class="formulario__campo">
+                        <label for="first-name" class="formulario__label">Nombre</label>
+                        <input id="first-name" type="text" class="formulario__input" name="first_name" aria-describedby="emailHelp"
+                            value="{{ form.first_name.value|default:'' }}">
+                    </div>
+                    <div class="formulario__campo">
+                        <label for="last_name" class="formulario__label">Apellido</label>
+                        <input id="last_name" type="text" class="formulario__input" name="last_name" aria-describedby="emailHelp"
+                            value="{{ form.last_name.value|default:'' }}">
+                    </div>
+                    <div class="formulario__campo">
+                        <label for="email" class="formulario__label">Correo</label>
+                        <input id="email" type="email" class="formulario__input" name="email" aria-describedby="emailHelp"
+                            value="{{ form.email.value|default:'' }}">
+                    </div>
+                </div>
+
+                <div class="formulario__boton">
+                    <button type="submit" class="formulario__submit">Actualizar datos</button>
+                </div>
+            
+            </div>
+        </div>
+    </form>
+</main>
+{% endblock %}
+
+{% block Footerborder %}
+
+
+        <div class="header__navegacion">
+            <ul class="header__lista">
+                <li class="header__item">
+                    <a class="header__link" aria-current="page" href="{% url 'inicio' %}">
+                        <span>Inicio</span></a>
+                </li>
+                <li class="header__item">
+                    <a class="header__link" aria-current="page"
+                        href="{% url 'listar_noticia' %}">
+                        <span>Noticias</span></a>
+                </li>
+                <li class="header__item">
+                    <a class="header__link" aria-current="page"
+                        href="{% url 'listar_proyectos' %}">
+                        <span>Proyectos</span></a>
+                </li>
+                <li class="header__item">
+                    <a class="header__link" aria-current="page"
+                        href="{% url 'listar_actividad' %}">
+                        <span>Actividades</span></a>
+                </li>
+            </ul>
+        </div>
+   
+    
+{% endblock Footerborder %}

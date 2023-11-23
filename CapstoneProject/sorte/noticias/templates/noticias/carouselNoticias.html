@@ -1,0 +1,101 @@
+{% extends 'core/base.html' %}
+
+{% load static %}
+
+
+{% block extrastyle %}
+    <link rel="stylesheet" href="{% static 'core/css/style/carouselDetalle.css' %}">
+{% endblock extrastyle %}
+    
+
+{% block Headerborder %}
+    <div class="header__navegacion">
+        <ul class="header__lista">
+            <li class="header__item">
+                <a class="header__link" aria-current="page" href="{% url 'inicio' %}">Inicio</a>
+            </li>
+            <li class="header__item">
+                <a class="header__link" aria-current="page"
+                    href="{% url 'listar_noticia' %}">Noticias</a>
+            </li>
+            <li class="header__item">
+                <a class="header__link" aria-current="page"
+                    href="{% url 'listar_proyectos' %}">Proyectos</a>
+            </li>
+            <li class="header__item">
+                <a class="header__link" aria-current="page"
+                    href="{% url 'listar_actividad' %}">Actividades</a>
+            </li>
+        </ul>
+    </div>
+{% endblock Headerborder %}
+
+    
+
+    
+
+{% block content %}
+    <main class="main container">
+        <div class="volver">
+            <a href="{% url 'listar_noticia' %}" class="volver__link">
+                <img class="volver__imagen" src="{% static 'core/img/flecha-izquierda.svg' %}" alt="">
+                <p class="volver__texto">Volver | Noticias</p>
+            </a>
+        </div>
+        <div class="contenido">
+            <div class="contenido__picture">
+                <img class="contenido__imagen" src="{{ imagen.imagen.url }}" alt="imagen carousel">
+            </div>
+            <div class="contenido__titular">
+                <h1 class="contenido__titulo">{{ imagen.titulo }}</h1>
+                <span class="contenido__fecha">
+                    Fecha:
+                    <p class="contenido__tiempo">{{ imagen.fecha }}</p>
+                </span>
+            </div>
+            <p class="contenido__descripcion">{{ imagen.descripcion }}</p>
+        </div>
+    </main>
+{% endblock content %}
+
+
+
+{% block Footerborder %}
+
+
+        <div class="header__navegacion">
+            <ul class="header__lista">
+                <li class="header__item">
+                    <a class="header__link" aria-current="page" href="{% url 'inicio' %}">
+                        <span>Inicio</span></a>
+                </li>
+                <li class="header__item">
+                    <a class="header__link" aria-current="page"
+                        href="{% url 'listar_noticia' %}">
+                        <span>Noticias</span></a>
+                </li>
+                <li class="header__item">
+                    <a class="header__link" aria-current="page"
+                        href="{% url 'listar_proyectos' %}">
+                        <span>Proyectos</span></a>
+                </li>
+                <li class="header__item">
+                    <a class="header__link" aria-current="page"
+                        href="{% url 'listar_actividad' %}">
+                        <span>Actividades</span></a>
+                </li>
+            </ul>
+        </div>
+
+
+   
+    
+{% endblock Footerborder %}
+
+
+{% block js %}
+    <script src="{% static 'core/js/vecino/carousel/verMas.js' %}"></script>
+{% endblock js %}
+    
+    
+    

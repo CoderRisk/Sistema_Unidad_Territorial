@@ -1,0 +1,141 @@
+.titulo,
+.subtitulo{
+    text-align: center;
+}
+
+.subtitulo{
+    margin: 1.875rem auto 4.375rem auto;
+    font-weight: 400;
+    width: 90%;
+}
+
+/*              Seccion Beneficios          */
+
+.beneficios__ola{
+    overflow: hidden;
+}
+
+.ola{
+    fill: var(--color-azul); 
+    padding: .625rem 0 0 0;
+    transform: scaleX(1.3);
+}
+
+.beneficios__uno{
+    background-color: var(--color-azul);
+    position: relative;
+    z-index: 1;
+    top:-.625rem;
+    padding: 0 0 2.5rem 0;
+}
+
+.beneficios__uno::after{
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 5rem;
+    background-color: inherit;
+    transform: rotate(1deg);
+    top: 93%;
+}
+
+.beneficios__dos{
+    margin: 6.25rem 0;
+    position: relative;
+}
+
+
+.beneficios__tres::before{
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 5rem;
+    background-color: var(--color-azul);
+    transform: rotate(-1deg);
+    top: -0.9375rem;
+    z-index: 2;
+}
+
+
+.beneficios__tres{
+    background-color: var(--color-azul);
+    padding: 7.5rem 0;
+    position: relative;
+    z-index: 1;
+}
+
+.beneficios__tres::after{
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 5rem;
+    background-color: inherit;
+    transform: rotate(1deg);
+    top: 92%;
+}
+
+.beneficios__grid{
+    display: grid;
+    text-align: center;
+    padding: 4.375rem 0;
+    grid-template-columns: repeat(1, 1fr);
+    align-items: center;
+    gap: 1.25rem;
+}
+
+.beneficio__imagen{
+    width: 50%;
+}
+
+.beneficio__titulo{
+    font-weight:700;
+    font-size: 2.25rem;
+}
+
+.beneficio__descripcion{
+    line-height: 1.5;
+    margin: 1.875rem 0 0 0;
+    text-align: center;
+}
+
+.beneficios__uno .beneficio__titulo,
+.beneficios__uno .beneficio__descripcion{
+    color: #fff;
+    text-shadow: 1px 1px 2px rgb(0, 0, 0);
+    padding: .9375rem 0 0 0;
+}
+
+.beneficios__dos .beneficio__titulo,
+.beneficios__dos .beneficio__descripcion{
+    color: var(--color-black);
+    text-shadow: none;
+}
+
+.beneficios__tres .beneficio__titulo,
+.beneficios__tres .beneficio__descripcion{
+    color: #fff;
+    text-shadow: 1px 1px 2px rgb(0, 0, 0);
+    padding: .9375rem 0 0 0;
+}
+
+@media (min-width: 768px) { 
+    .beneficios__grid{
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .beneficio__imagen{
+        width: 60%;
+    }
+
+    .beneficios__dos .beneficios__grid .beneficio__contenido{
+        grid-row: 1 / 2;
+        margin: 0 0 0 auto;
+    }
+
+}
+
+@media (min-width: 1200px) { 
+    .beneficio__contenido{
+        width: 70%;   
+    }
+}

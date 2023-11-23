@@ -1,0 +1,279 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    {% load static %}
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>SORTE</title>
+    <link rel="stylesheet" href="{% static 'core/css/style/normalize.css' %}">
+    <link rel="stylesheet" href="{% static 'core/css/style/style.css' %}">
+    <link rel="stylesheet" href="{% static 'core/css/vecino/header.css' %}">
+
+    {% if user.is_authenticated %}
+        <link rel="stylesheet" href="{% static 'core/css/miembroJDV/usuario/usuario.css' %}">
+    {% endif %}
+    
+    {% block extrastyle %}
+        
+    {% endblock extrastyle %}
+        
+    <link rel="stylesheet" href="{% static 'core/css/vecino/footer.css' %}">
+
+</head>
+
+<body>
+
+    <!-- Menú de Navegación -->
+    <div class="header container">
+        <div class="header__menu">
+            <div class="header__logo">
+                <a href="{% url 'inicio' %}">
+                    <img class="header__imagen" src="{% static 'core/img/SORTE_GO.png' %}" alt="imagen SORTE">
+                </a>
+            </div>
+            
+            
+            {% block Headerborder %}
+                
+            {% endblock Headerborder %}
+                
+            {% if user.is_staff %}
+                <div class="header__navegacion">
+                    <div class="header__usuario">
+                        <svg id="header__imagen" class="header__imagen" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                            <path id="path-header__imagen" d="M399 384.2C376.9 345.8 335.4 320 288 320H224c-47.4 0-88.9 25.8-111 64.2c35.2 39.2 86.2 63.8 143 63.8s107.8-24.7 143-63.8zM0 256a256 256 0 1 1 512 0A256 256 0 1 1 0 256zm256 16a72 72 0 1 0 0-144 72 72 0 1 0 0 144z"/>
+                        </svg>
+                    </div>
+                    <div class="usuario">
+                        <ul id="usuario__lista" class="usuario__lista">
+                            <li class="usuario__item">
+                                <a class="usuario__link" href="{% url 'publicar' %}">Publicar</a>
+                            </li>
+                            <li class="usuario__item">
+                                <a class="usuario__link" href="{% url 'profile_user' %}">Mi perfil</a>
+                            </li>
+                            <li class="usuario__item">
+                                <a class="usuario__link" href="{% url 'update_profile_user' %}">Actualizar Perfil</a>
+                            </li>
+                            <li class="usuario__item">
+                                <a class="usuario__link" href="{% url 'portal' %}">Solicitudes</a>
+                            </li>
+                            <li class="usuario__item">
+                                <a class="usuario__link" href="{% url 'generar_certificado' %}">Generar certificado</a>
+                            </li>
+                            <li class="usuario__item">
+                                <a class="usuario__link" href="{% url 'inicioDashboard' %}">Dashboard</a>
+                            </li>
+                            <li class="usuario__item">
+                                <a class="usuario__link" aria-current="page" href="{% url 'logout' %}">Cerrar sesión</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            {% elif user.is_authenticated %}
+                <div class="header__navegacion">
+                    <div class="header__usuario">
+                        <svg id="header__imagen" class="header__imagen" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                            <path id="path-header__imagen" d="M399 384.2C376.9 345.8 335.4 320 288 320H224c-47.4 0-88.9 25.8-111 64.2c35.2 39.2 86.2 63.8 143 63.8s107.8-24.7 143-63.8zM0 256a256 256 0 1 1 512 0A256 256 0 1 1 0 256zm256 16a72 72 0 1 0 0-144 72 72 0 1 0 0 144z"/>
+                        </svg>
+                    </div>
+                    <div class="usuario">
+                        <ul id="usuario__lista" class="usuario__lista">
+                            <li class="usuario__item">
+                                <a class="usuario__link" aria-current="page" href="{% url 'profile_user' %}">Mi perfil</a>
+                            </li>
+                            <li class="usuario__item">
+                                <a class="usuario__link" aria-current="page" href="{% url 'update_profile_user' %}">Actualizar datos</a>
+                            </li>
+                            <li class="usuario__item">
+                                <a class="usuario__link" href="{% url 'generar_certificado' %}">Generar certificado</a>
+                            </li>
+                            <li class="usuario__item">
+                                <a class="usuario__link" href="#">Arriendo</a>
+                            </li>
+                            <li class="usuario__item">
+                                <a class="usuario__link" aria-current="page" href="{% url 'portal' %}">Solicitudes</a>
+                            </li>
+                            <li class="usuario__item">
+                                <a class="usuario__link" aria-current="page" href="{% url 'logout' %}">Cerrar sesión</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            {% else %}
+                
+            {% block FuncionVecino %}
+                
+            {% endblock FuncionVecino %}
+                
+            
+            {% endif %}
+
+        </div>
+    </div>
+
+    <!-- Carrusel de imagenes -->
+    
+    {% block carousel %}
+        
+    {% endblock carousel %}
+
+
+    
+    {% if user.is_authenticated %}
+        
+        {% block carouselAuth %}
+            
+        {% endblock carouselAuth %}
+
+    {% else %}
+
+        
+        {% block beneficio %}
+            
+        {% endblock beneficio %}
+            
+            
+    {% endif %}
+        
+        
+    <!-- Fin de carrusel de imagenes -->
+
+    <!-- Contenido -->
+    
+    {% block content %}
+    
+    {% endblock %}
+    
+
+
+
+    <!-- Footer -->
+    
+    <footer class="footer">
+        <div class="header__menu">
+            <div class="header__logo">
+                <a href="{% url 'inicio' %}">
+                    <img class="header__imagen" src="{% static 'core/img/SORTE_GO.png' %}" alt="imagen SORTE">
+                </a>
+            </div>
+            
+            {% block Footerborder %}
+                <div class="header__navegacion">
+                    <ul class="header__lista">
+                        <li class="header__item">
+                            <a class="header__link" aria-current="page" href="{% url 'inicio' %}">
+                                <span class="border">Inicio</span></a>
+                        </li>
+                        <li class="header__item">
+                            <a class="header__link" aria-current="page"
+                                href="{% url 'listar_noticia' %}">
+                                <span>Noticias</span></a>
+                        </li>
+                        <li class="header__item">
+                            <a class="header__link" aria-current="page"
+                                href="{% url 'listar_proyectos' %}">
+                                <span>Proyectos</span></a>
+                        </li>
+                        <li class="header__item">
+                            <a class="header__link" aria-current="page"
+                                href="{% url 'listar_actividad' %}">
+                                <span>Actividades</span></a>
+                        </li>
+                    </ul>
+                </div>
+            {% endblock Footerborder %}
+        </div>
+
+        <div class="social">
+            <h2 class="social__title">Nuestras Redes</h2>
+            <a href="https://twitter.com/muniislademaipo" class="social__media">
+                <svg class="twitter" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                    <path d="M389.2 48h70.6L305.6 224.2 487 464H345L233.7 318.6 106.5 464H35.8L200.7 275.5 26.8 48H172.4L272.9 180.9 389.2 48zM364.4 421.8h39.1L151.1 88h-42L364.4 421.8z"/>
+                </svg>
+                <p class="social__name">X-Twitter</p>
+            </a>
+            <a href="https://www.youtube.com/@municipalidadislademaipo6097" class="social__media">
+                <svg class="youtube" xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 576 512">
+                    <path d="M549.655 124.083c-6.281-23.65-24.787-42.276-48.284-48.597C458.781 64 288 64 288 64S117.22 64 74.629 75.486c-23.497 6.322-42.003 24.947-48.284 48.597-11.412 42.867-11.412 132.305-11.412 132.305s0 89.438 11.412 132.305c6.281 23.65 24.787 41.5 48.284 47.821C117.22 448 288 448 288 448s170.78 0 213.371-11.486c23.497-6.321 42.003-24.171 48.284-47.821 11.412-42.867 11.412-132.305 11.412-132.305s0-89.438-11.412-132.305zm-317.51 213.508V175.185l142.739 81.205-142.739 81.201z"/>
+                </svg>
+                <p class="social__name">Youtube</p>
+            </a>
+            <a href="https://www.facebook.com/muni.islademaipo/" class="social__media">
+                <svg class="facebook" xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 512 512">
+                    <path d="M504 256C504 119 393 8 256 8S8 119 8 256c0 123.78 90.69 226.38 209.25 245V327.69h-63V256h63v-54.64c0-62.15 37-96.48 93.67-96.48 27.14 0 55.52 4.84 55.52 4.84v61h-31.28c-30.8 0-40.41 19.12-40.41 38.73V256h68.78l-11 71.69h-57.78V501C413.31 482.38 504 379.78 504 256z"/>
+                </svg>
+                <p class="social__name">Facebook</p>
+            </a>
+            <a href="https://www.instagram.com/muni.islademaipo/" class="social__media">
+                <svg class="instagram" xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 448 512">
+                    <path d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z"/>
+                </svg>
+                <p class="social__name">Instagram</p>
+            </a>
+            <p class="copyright">© 2023 SORTE. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+    
+    
+
+    
+
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>  
+
+{% if messages %}    
+
+        
+    {% for message in messages %}
+    
+     
+        
+    {% if message.tags == 'success' %}
+ 
+        <script>
+            Swal.fire({
+                    "title": "Felicitaciones",
+                    "html": "{{ message|safe }}",
+                    "icon": "success",
+                }
+            )
+        </script>
+    {% elif message.tags == 'info' %}
+        <script>
+            Swal.fire({
+                    "title": "Recordatorio",
+                    "html": "{{ message|safe }}",
+                    "icon": "info",
+                }
+            )
+        </script>
+    {% else %}
+    
+        <script>
+            Swal.fire({
+                        "title": "Error",
+                        "html": "{{ message|safe }}",
+                        "icon": "error",
+                    }
+                )
+        </script>
+    {% endif %}
+        
+        
+    {% endfor %}
+
+{% endif %}
+
+    {% block js %}
+    {% endblock %}
+
+    
+    {% if user.is_authenticated %}
+        <script src="{% static 'core/js/miembroJDV/usuario/usuario.js' %}"></script>
+    {% endif %}
+        
+
+</body>
+
+</html>

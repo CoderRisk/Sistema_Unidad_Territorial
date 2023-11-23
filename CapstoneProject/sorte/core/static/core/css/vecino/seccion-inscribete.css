@@ -1,0 +1,83 @@
+/*             Seccion Inscribete             */
+
+.seccion-inscribete{
+    border-top: .0625rem solid black;
+}
+
+.seccion-inscribete__contenido{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 3.75rem 0;
+}
+
+.seccion-inscribete__svg{
+    text-align: center;
+}
+
+.seccion-inscribete__imagen{
+    width: 50%;
+    height: auto;
+    
+}
+
+@media (min-width: 768px) { 
+    .seccion-inscribete__contenido{
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+    } 
+
+    .seccion-inscribete__imagen{
+        width: 15rem;
+        
+    }
+}
+
+
+/*            Participar               */
+
+.participar{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.participar__titulo{
+    margin: .625rem 0 .625rem 0;
+    font-size: 1.125rem;
+    font-weight: 400;
+}
+
+.participar__click{
+    margin: 0;
+    font-size: .875rem;
+    font-weight: 400;
+}
+
+.participar__svg{
+    width: .9375rem;
+}
+
+.participar__btn{
+    text-decoration: none;
+    background-color: var(--color-azul);
+    color: #fff;
+    padding: .625rem 1.875rem;
+    border-radius: .625rem;
+    font-size: 1.125rem;
+    box-shadow: 0 .1875rem .25rem rgba(0, 0, 0, 0.562);
+    transition: transform .3s ease;
+}
+
+.participar__btn:hover{
+    transform: scale(1.1);
+    transition: transform .3s ease;
+}
+
+@media (min-width: 768px) { 
+    .participar__titulo{
+        margin: 0 0 .625rem 0;
+    }
+}

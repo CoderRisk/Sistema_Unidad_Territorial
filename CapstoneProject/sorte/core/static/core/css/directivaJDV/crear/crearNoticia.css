@@ -1,0 +1,331 @@
+.main{
+    background-color: var(--color-azul-fondo);
+    color: #fff;
+}
+
+.main__contenedor{
+    display: flex;
+    flex-direction: column;
+    
+}
+
+.main__aside{
+    width: 100%;
+    border-bottom: .0625rem solid #fff;
+
+}
+
+.main__portal{
+    width: 100%;
+}
+
+.main__grid{
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    text-align: center;
+    margin-bottom: 4.375rem;
+}
+
+.main__child{
+    margin: .625rem 0;
+}
+
+.main__h2{
+    text-align: center;
+    margin: 4.375rem 0;
+}
+
+.main__lista{
+    list-style: none;
+    display: flex;
+    text-align: center;
+    align-items: center;
+    margin: 4.375rem 0;
+    padding: 0;
+    width: 100%;
+    justify-content: space-between;
+    background-color: #3b89f74c;
+    border-radius: .625rem;
+}
+
+.main__item{
+    margin: 0 .1875rem;
+    font-size: .625rem;
+    padding: .625rem 0;
+}
+
+.main__enlace{
+    text-decoration: none;
+    color: #fff;
+    display: block;
+    text-align: center;
+    margin: 2.5rem 0;
+    padding: 1.25rem;
+    transition: background-color .3s ease;
+    border: .0625rem solid #1463f64f;
+    border-radius: .625rem;
+}
+
+.main__enlace:hover{
+    background-color: var(--color-celeste-activo);
+    transition: background-color .3s ease;
+}
+
+.activo{
+    background-color: var(--color-celeste-activo);
+}
+
+.main__imagen{
+    width: 70%;
+    
+}
+
+
+
+/* Formulario */
+
+
+.formulario{
+    width: 100%;
+    background-color: var(--color-celeste-opacidad);
+    margin: 3.75rem auto;
+}
+
+.formulario__grid{
+    display: grid;
+    width: 100%;
+    grid-template-columns: repeat(1, 1fr);
+
+}
+
+.formulario__flex{
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+    margin: 1.25rem auto;
+    position: relative;
+}
+
+.formulario__imagen{
+    width: 100%;
+    height: auto;
+    margin: 0 auto;
+    border-radius: .625rem;
+}
+
+.formulario__file{
+    display: none;
+}
+
+.formulario__label{
+    background-color: rgb(32, 93, 183);
+    width: min-content;
+    padding: .1875rem;
+    color: #fff;
+    margin: 0 0 .1875rem 0;
+    border-radius: .125rem;
+    position: absolute;
+    font-size: .75rem;
+    top: -0.8125rem;
+    left: .3125rem;
+    transition: top .3s ease;
+    text-wrap: nowrap;
+}
+
+.formulario__flex:nth-child(2) .formulario__label{
+    cursor: pointer;
+    left: 0;
+    left: 39%;
+    margin: 1.25rem 0;
+    padding: .625rem 1.25rem;
+    position: unset; 
+    border: .0625rem solid var(--color-white);
+    border-radius: .625rem;
+}
+.formulario__flex:nth-child(2){
+    margin: 2.5rem auto;
+    align-items: center;
+    border-radius: .625rem;
+}
+
+
+.formulario__input{
+    height: 1.875rem;
+    border: .0625rem solid var(--color-white);
+    border-radius: .625rem;
+    outline: none; 
+    background-color: unset;
+    padding: 1.25rem .625rem;
+    color: var(--color-white);
+}
+
+
+
+.formulario__input:focus + .formulario__label{
+    top: -1.375rem;
+}
+
+.formulario__area:focus + .formulario__label{
+    top: -1.375rem;
+}
+
+
+.formulario__area{
+    border: .0625rem solid var(--color-white);
+    color: var(--color-white);
+    background-color: unset;
+    border-radius: .625rem;
+    outline: none; 
+    resize: none;
+    height: auto;
+    width: 100%;
+    margin: 0 auto;
+    padding: .625rem;
+}
+
+.formulario__submit{
+    background-color: rgb(32, 93, 183);
+    border: .0625rem solid var(--color-white);
+    display: inline-block;
+    max-width: 12.5rem;
+    margin: 0 auto 1.875rem auto;
+    color: #fff;
+    padding: .625rem 1.25rem;
+    border-radius: .625rem;
+    cursor: pointer;
+    transition: transform .3s ease;
+}
+
+.formulario__submit:hover{
+    transform: scale(1.1);
+    transition: transform .3s ease;
+}
+
+@media (min-width: 768px) { 
+    .main__contenedor{
+        flex-direction: row;
+    }
+
+    .main__aside{
+        width: 30%;
+        border-bottom: unset;
+        border-right: .0625rem solid var(--color-white);
+        padding: 0 2.5rem 0 0;
+    }
+
+    .main__portal{
+        width: 70%;
+    }
+
+    .main__lista{
+        padding: 0 2.5rem;
+        margin: unset;
+    }
+
+    .formulario__grid{
+      
+        margin: 0 auto;
+        
+    }
+
+    .formulario{
+        max-width: 26.875rem;
+        border-radius: 1.25rem;
+    }
+}
+
+@media (min-width: 992px) { 
+    .main__grid{
+        grid-template-columns: repeat(2, 1fr);
+        align-items: center;
+    }
+
+    .main__p{
+        width: 70%;
+    }
+
+    .main__imagen{
+        width: 60%;
+        
+    }
+
+
+    .formulario__grid{
+       
+        margin: 0 auto;
+    }
+}
+
+.load{
+    background-color: unset;
+    border: 0.0625rem solid var(--color-white);
+    border-radius: .625rem;
+    width: 11rem;
+    max-width: 11rem;
+    display: none;
+    padding: .375rem 0;
+    margin: 0 auto 1.875rem auto;
+    justify-content: center;
+    transition: transform .3s ease;
+    cursor: wait;
+}
+
+.load:hover{
+    transform: scale(1.1);
+    transition: transform .3s ease;
+}
+
+.sk-chase {
+    width: 25px;
+    height: 25px;
+    position: relative;
+    animation: sk-chase 2.5s infinite linear both;
+  }
+  
+  .sk-chase-dot {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0; 
+    animation: sk-chase-dot 2.0s infinite ease-in-out both; 
+  }
+  
+  .sk-chase-dot:before {
+    content: '';
+    display: block;
+    width: 25%;
+    height: 25%;
+    background-color: #fff;
+    border-radius: 100%;
+    animation: sk-chase-dot-before 2.0s infinite ease-in-out both; 
+  }
+  
+  .sk-chase-dot:nth-child(1) { animation-delay: -1.1s; }
+  .sk-chase-dot:nth-child(2) { animation-delay: -1.0s; }
+  .sk-chase-dot:nth-child(3) { animation-delay: -0.9s; }
+  .sk-chase-dot:nth-child(4) { animation-delay: -0.8s; }
+  .sk-chase-dot:nth-child(5) { animation-delay: -0.7s; }
+  .sk-chase-dot:nth-child(6) { animation-delay: -0.6s; }
+  .sk-chase-dot:nth-child(1):before { animation-delay: -1.1s; }
+  .sk-chase-dot:nth-child(2):before { animation-delay: -1.0s; }
+  .sk-chase-dot:nth-child(3):before { animation-delay: -0.9s; }
+  .sk-chase-dot:nth-child(4):before { animation-delay: -0.8s; }
+  .sk-chase-dot:nth-child(5):before { animation-delay: -0.7s; }
+  .sk-chase-dot:nth-child(6):before { animation-delay: -0.6s; }
+  
+  @keyframes sk-chase {
+    100% { transform: rotate(360deg); } 
+  }
+  
+  @keyframes sk-chase-dot {
+    80%, 100% { transform: rotate(360deg); } 
+  }
+  
+  @keyframes sk-chase-dot-before {
+    50% {
+      transform: scale(0.4); 
+    } 100%, 0% {
+      transform: scale(1.0); 
+    } 
+  }

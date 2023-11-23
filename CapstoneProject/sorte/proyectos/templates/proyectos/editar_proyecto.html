@@ -1,0 +1,183 @@
+{% extends 'core/base.html' %}
+
+{% load static %}
+
+{% block extrastyle %}
+    <link rel="stylesheet" href="{% static 'core/css/proyectos/editarProyecto.css' %}">
+{% endblock extrastyle %}
+
+
+{% block Headerborder %}
+<div class="header__navegacion">
+    <ul class="header__lista">
+        <li class="header__item">
+            <a class="header__link" aria-current="page" href="{% url 'inicio' %}">Inicio</a>
+        </li>
+        <li class="header__item">
+            <a class="header__link" aria-current="page"
+                href="{% url 'listar_noticia' %}">Noticias</a>
+        </li>
+        <li class="header__item">
+            <a class="header__link" aria-current="page"
+                href="{% url 'listar_proyectos' %}">Proyectos</a>
+        </li>
+        <li class="header__item">
+            <a class="header__link" aria-current="page"
+                href="{% url 'listar_actividad' %}">Actividades</a>
+        </li>
+    </ul>
+</div>
+{% endblock Headerborder %}
+
+
+
+{% block content %}
+    
+<main class="main container">
+    
+
+    <div class="volver">
+        <a href="{% url 'detalle_proyecto' proyectos.id %}" class="volver__link">
+            <img class="volver__imagen" src="{% static 'core/img/flecha-izquierda.svg' %}" alt="">
+            <p class="volver__texto">Volver | Proyecto</p>
+        </a>
+        <a href="{% url 'listar_proyectos' %}" class="volver__link">
+            <img class="volver__imagen" src="{% static 'core/img/flecha-derecha.svg' %}" alt="">
+            <p class="volver__texto">Volver | Proyectos</p>
+        </a>
+    </div>
+
+    <h2 class="main__titulo">Editar {{ proyectos.nombre_proyecto }}</h2>
+    
+    <form class="formulario" method="POST" enctype="multipart/form-data"> {% csrf_token %}
+    
+        <div class="formulario__flex">
+            {% if proyectos.imagen_proyecto %}
+                <img id="imagen-preview" class="formulario__imagen" src="{{ proyectos.imagen_proyecto.url }}" alt="">
+            {% else %}
+                <img id="imagen-preview" class="formulario__imagen" src="{% static 'core/img/noDisponible.png' %}" alt="imagen no disponible">
+            {% endif %}
+        </div>
+    
+        <div class="formulario__flex">
+            {{ form.imagen_proyecto }}
+            <label class="formulario__label" for="id_imagen_proyecto">{{ form.imagen_proyecto.label }}</label>
+        </div>
+    
+        <div class="formulario__flex">
+            <label class="formulario__label" for="id_nombre_proyecto">{{ form.nombre_proyecto.label }}</label>
+            {{ form.nombre_proyecto }}
+        </div>
+    
+        <div class="formulario__flex">
+            <label class="formulario__label" for="id_descripcion">{{ form.descripcion.label }}</label>
+            {{ form.descripcion }}
+        </div>
+    
+        <div class="formulario__flex">
+            <label class="formulario__label" for="id_requisitos">{{ form.requisitos.label }}</label>
+            {{ form.requisitos }}
+        </div>
+    
+        <div class="formulario__flex">
+            <label class="formulario__label" for="id_cupos_disponibles_proyecto">{{ form.cupos_disponibles_proyecto.label }}</label>
+            {{ form.cupos_disponibles_proyecto }}
+            
+            {% if form.errors.cupos_disponibles_proyecto %}
+                <div class="error">
+                    <strong class="error__mensaje">Error en los Cupos:</strong>
+                    {{ form.errors.cupos_disponibles_proyecto }}
+                </div>
+            {% endif %}
+                
+        </div>
+    
+        <div class="formulario__flex">
+            <label class="formulario__label" for="id_fecha_inicio">{{ form.fecha_inicio.label }}</label>
+            {{ form.fecha_inicio }}
+
+            {% if form.errors.fecha_inicio %}
+                <div class="error">
+                    <strong class="error__mensaje">Error en la Fecha Inicio:</strong>
+                    {{ form.errors.fecha_inicio }}
+                </div>
+            {% endif %}
+        </div>
+
+        <div class="formulario__flex">
+            <label class="formulario__label" for="id_fecha_inicio_hora">{{ form.fecha_inicio_hora.label }}</label>
+            {{ form.fecha_inicio_hora }}
+
+            {% if form.errors.fecha_inicio_hora %}
+                <div class="error">
+                    <strong class="error__mensaje">Error en Hora de Inicio:</strong>
+                    {{ form.errors.fecha_inicio_hora }}
+                </div>
+            {% endif %}
+        </div>
+    
+        <div class="formulario__flex">
+            <label class="formulario__label" for="id_fecha_termino">{{ form.fecha_termino.label }}</label>
+            {{ form.fecha_termino }}
+
+            {% if form.errors.fecha_termino  %}
+                <div class="error">
+                    <strong class="error__mensaje">Error en Fecha Término:</strong>
+                    {{ form.errors.fecha_termino  }}
+                </div>
+            {% endif %}
+        </div>
+
+        <div class="formulario__flex">
+            <label class="formulario__label" for="id_fecha_termino_hora">{{ form.fecha_termino_hora.label }}</label>
+            {{ form.fecha_termino_hora }}
+
+            {% if form.errors.fecha_termino_hora %}
+                <div class="error">
+                    <strong class="error__mensaje">Error en Hora de Término:</strong>
+                    {{ form.errors.fecha_termino_hora  }}
+                </div>
+            {% endif %}
+        </div>
+    
+        <button type="submit" class="formulario__guardar">Guardar Cambios</button>
+    </form>
+</main>
+{% endblock %}
+
+
+{% block Footerborder %}
+
+        
+
+        <div class="header__navegacion">
+            <ul class="header__lista">
+                <li class="header__item">
+                    <a class="header__link" aria-current="page" href="{% url 'inicio' %}">
+                        <span>Inicio</span></a>
+                </li>
+                <li class="header__item">
+                    <a class="header__link" aria-current="page"
+                        href="{% url 'listar_noticia' %}">
+                        <span>Noticias</span></a>
+                </li>
+                <li class="header__item">
+                    <a class="header__link" aria-current="page"
+                        href="{% url 'listar_proyectos' %}">
+                        <span>Proyectos</span></a>
+                </li>
+                <li class="header__item">
+                    <a class="header__link" aria-current="page"
+                        href="{% url 'listar_actividad' %}">
+                        <span>Actividades</span></a>
+                </li>
+            </ul>
+        </div>
+ 
+{% endblock Footerborder %}
+
+
+{% block js %}
+    <script src="{% static 'core/js/directivaJDV/proyecto/editarProyecto.js' %}"></script>
+{% endblock js %}
+    

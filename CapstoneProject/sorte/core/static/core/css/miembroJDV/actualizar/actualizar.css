@@ -1,0 +1,144 @@
+.main__titular{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 1.875rem 0 0 0;
+}
+
+.main__titulo{
+    margin: 1.25rem 0;
+    font-size: 1.625rem;
+    text-align: center;
+}
+
+
+
+/* Formulario */
+
+.formulario{
+    display: flex;
+    justify-content: center;
+    margin: 4.375rem 0;
+}
+
+.formulario__grid{
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    max-width: 56.5rem;
+    box-shadow: 0 0 .1875rem black;
+    border-radius: .625rem;
+}
+
+
+/* formulario imagen */
+
+.formulario__contenedor{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.formulario__picture{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.formulario__imagen{
+    width: 60%;
+    margin: 1.875rem auto;
+}
+
+
+/* formulario campos */
+
+.formulario__campos{
+    background-color: var(--color-azul);
+    border-radius: .625rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.formulario__titular,
+.formulario__boton{
+    margin: 2.5rem 0;
+}
+
+/* campo */
+
+.formulario__campo{
+    padding: .625rem;
+    border: .0625rem solid var(--color-white);
+    margin: 1.875rem 0;
+    position: relative;
+    border-radius: .625rem;
+}
+
+.formulario__boton{
+    display: flex;
+    justify-content: center;
+}
+
+.formulario__titulo{
+    color: var(--color-white);
+    font-size: 1.5rem;
+    position: relative;
+}
+
+.formulario__titulo::after{
+    content: '';
+    width: 5.25rem;
+    height: .325rem;
+    background-color: var(--color-white);
+    position: absolute;
+    bottom: -30%;
+    left: 32%;
+}
+
+.formulario__label{
+    color: var(--color-white);
+    font-size: .875rem;
+    position: absolute;
+    top: -0.675rem;
+    background-color: var(--color-azul);
+    padding: 0 .3125rem;
+}
+
+.formulario__input{
+    border: none;
+    background-color: transparent;
+    color: var(--color-white);
+}
+
+.formulario__input:focus{
+    outline: none;
+}
+
+.formulario__submit{
+    border: none;
+    border: .0625rem solid var(--color-white);
+    background-color: var(--color-azul);
+    color: var(--color-white);
+    padding: .625rem 1.25rem;
+    border-radius: .625rem;
+    cursor: pointer;
+    display: block;
+    transition: transform .3s ease;
+}
+
+.formulario__submit:hover{
+    transform: scale(1.1);
+    transition: transform .3s ease;
+}
+
+@media (min-width: 768px) { 
+    .formulario__grid{
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .formulario__imagen{
+        margin: 0 auto;
+    }
+}

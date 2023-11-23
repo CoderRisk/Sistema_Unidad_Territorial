@@ -1,0 +1,153 @@
+{% extends 'core/base.html' %}
+
+{% load static %}
+
+
+{% block extrastyle %}
+    <link rel="stylesheet" href="{% static 'core/css/portal/portal.css' %}">
+{% endblock extrastyle %}
+    
+
+{% block Headerborder %}
+<div class="header__navegacion">
+    <ul class="header__lista">
+        <li class="header__item">
+            <a class="header__link" aria-current="page" href="{% url 'inicio' %}">Inicio</a>
+        </li>
+        <li class="header__item">
+            <a class="header__link" aria-current="page"
+                href="{% url 'listar_noticia' %}">Noticias</a>
+        </li>
+        <li class="header__item">
+            <a class="header__link" aria-current="page"
+                href="{% url 'listar_proyectos' %}">Proyectos</a>
+        </li>
+        <li class="header__item">
+            <a class="header__link" aria-current="page"
+                href="{% url 'listar_actividad' %}">Actividades</a>
+        </li>
+    </ul>
+</div>
+{% endblock Headerborder %}
+
+{% block content %}
+<main class="main">
+    <div class="main__contenedor container">
+        
+        {% if user.is_staff %}
+            <aside class="main__aside">
+                <div class="main__titulo">
+                    <h2 class="main__h2">Administra y Gestiona</h2>
+                </div>
+                <div class="main__navegacion">
+                    <div class="main__link">
+                        <p class="main__enlace">Inscripciones de Actividades</p>
+                    </div>
+                    <div class="main__inscripciones">
+                        <a class="solicitud__inscripcion" href="{% url 'gestionar_inscripciones' %}">Actividades Pendientes</a>
+                        <a class="solicitud__inscripcion" href="{% url 'gestionar_inscripciones_aceptada' %}">Actividades Aceptadas</a>
+                        <a class="solicitud__inscripcion" href="{% url 'gestionar_inscripciones_rechazada' %}">Actividades Rechazadas</a>
+                    </div>
+                    <div class="main__link">
+                        <p class="main__enlace">Postulaciones de Proyectos</p>
+                    </div>
+                    <div class="main__postulaciones">
+                        <a class="solicitud__postulacion" href="{% url 'gestionar_solicitudes' %}">Postulaciones Pendientes</a>
+                        <a class="solicitud__postulacion" href="{% url 'gestionar_solicitudes_aceptada' %}">Postulaciones Aceptadas</a>
+                        <a class="solicitud__postulacion" href="{% url 'gestionar_solicitudes_rechazada' %}">Postulaciones Rechazadas</a>
+                    </div>
+                </div>
+            </aside>
+            <div class="main__portal">
+                <div class="main__proyecto">
+                    <h2 class="main__h2">Administra y Gestiona las solicitudes de tus vecinos</h2>
+
+                </div>
+                <div class="main__postulacion">               
+                    <div class="main__grid">
+                        <h3 class="main__titular">Visualiza las solicitudes</h3>
+                        <img class="main__imagen" src="{% static 'core/img/manage.svg' %}" alt="">
+                        <p class="main__contenido">En este portal, puede revisar las solicitudes de los miembros de la junta de vecinos, organizadas en tres categorías para ambas solicitudes. Al hacer clic, se despliegan las opciones disponibles para su selección.</p>
+                    </div>
+                </div>
+
+            </div>
+        {% elif user.is_authenticated %}
+            <aside class="main__aside">
+                <div class="main__titulo">
+                    <h2 class="main__h2">Verifica tus solicitudes</h2>
+                </div>
+                <div class="main__navegacion">
+                    <div class="main__link">
+                        <p class="main__enlace">Actividades Inscritas</p>
+                    </div>
+                    <div class="main__inscripciones">
+                        <a class="solicitud__inscripcion" href="{% url 'mis_solicitudes_miembro' %}">Actividades Pendientes</a>
+                        <a class="solicitud__inscripcion" href="{% url 'mis_solicitudes_miembro_aceptada' %}">Actividades Aceptadas</a>
+                        <a class="solicitud__inscripcion" href="{% url 'mis_solicitudes_miembro_rechazada' %}">Actividades Rechazadas</a>
+                    </div>
+                    <div class="main__link">
+                        <p class="main__enlace">Proyectos Postulados</p>
+                    </div>
+                    <div class="main__postulaciones">
+                        <a class="solicitud__postulacion" href="{% url 'mis_solicitudes' %}">Postulaciones Pendientes</a>
+                        <a class="solicitud__postulacion" href="{% url 'mis_solicitudes_aceptada' %}">Postulaciones Aceptadas</a>
+                        <a class="solicitud__postulacion" href="{% url 'mis_solicitudes_rechazada' %}">Postulaciones Rechazadas</a>
+                    </div>
+                </div>
+            </aside>
+            <div class="main__portal">
+                <div class="main__proyecto">
+                    <h2 class="main__h2">Tu portal de Inscripciones y Postulaciones</h2>
+
+                </div>
+                <div class="main__postulacion">               
+                    <div class="main__grid">
+                        <h3 class="main__titular">Visualiza tus solicitudes</h3>
+                        <img class="main__imagen" src="{% static 'core/img/option.svg' %}" alt="">
+                        <p class="main__contenido">Este portal le permite visualizar sus postulaciones e inscripciones, proporcionando transparencia sobre la gestión de sus solicitudes por parte de la dirección de SORTE. Al hacer clic, se despliegan las opciones disponibles para su selección.</p>
+                    </div>
+                </div>
+
+            </div>
+        {% endif %}
+
+    </div>
+</main>
+{% endblock %}
+
+{% block Footerborder %}
+
+
+    <div class="header__navegacion">
+        <ul class="header__lista">
+            <li class="header__item">
+                <a class="header__link" aria-current="page" href="{% url 'inicio' %}">
+                    <span>Inicio</span></a>
+            </li>
+            <li class="header__item">
+                <a class="header__link" aria-current="page"
+                    href="{% url 'listar_noticia' %}">
+                    <span>Noticias</span></a>
+            </li>
+            <li class="header__item">
+                <a class="header__link" aria-current="page"
+                    href="{% url 'listar_proyectos' %}">
+                    <span>Proyectos</span></a>
+            </li>
+            <li class="header__item">
+                <a class="header__link" aria-current="page"
+                    href="{% url 'listar_actividad' %}">
+                    <span>Actividades</span></a>
+            </li>
+        </ul>
+    </div>
+   
+{% endblock Footerborder %}
+
+
+{% block js %}
+    <script src="{% static 'core/js/miembroJDV/portal/portal.js' %}"></script>
+{% endblock js %}
+    
+

@@ -1,0 +1,206 @@
+{% extends 'core/base.html' %}
+
+{% load static %}
+
+
+{% block extrastyle %}
+  <link rel="stylesheet" href="{% static 'core/css/directivaJDV/inscripciones/inscripciones.css' %}">
+{% endblock extrastyle %}
+  
+
+{% if messages %}
+  <ul class="messages">
+    {% for message in messages %}
+      <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+  </ul>
+{% endif %}
+
+{% block Headerborder %}
+<div class="header__navegacion">
+    <ul class="header__lista">
+        <li class="header__item">
+            <a class="header__link" aria-current="page" href="{% url 'inicio' %}">Inicio</a>
+        </li>
+        <li class="header__item">
+            <a class="header__link" aria-current="page"
+                href="{% url 'listar_noticia' %}">Noticias</a>
+        </li>
+        <li class="header__item">
+            <a class="header__link" aria-current="page"
+                href="{% url 'listar_proyectos' %}">Proyectos</a>
+        </li>
+        <li class="header__item">
+            <a class="header__link" aria-current="page"
+                href="{% url 'listar_actividad' %}">Actividades</a>
+        </li>
+    </ul>
+</div>
+{% endblock Headerborder %}
+
+{% block content %}
+<main class="main">
+  <div class="main__contenedor container">
+    <aside class="main__aside">
+      <div class="main__titulo">
+        <h2 class="main__h2">Administra y Gestiona</h2>
+      </div>
+      <div class="main__navegacion">
+          <div class="main__link">
+              <p class="main__enlace activo">Inscripciones de Actividades</p>
+          </div>
+          <div class="main__inscripciones">
+              <a class="solicitud__inscripcion" href="{% url 'gestionar_inscripciones' %}">Actividades Pendientes</a>
+              <a class="solicitud__inscripcion activo" href="{% url 'gestionar_inscripciones_aceptada' %}">Actividades Aceptadas</a>
+              <a class="solicitud__inscripcion" href="{% url 'gestionar_inscripciones_rechazada' %}">Actividades Rechazadas</a>
+          </div>
+          <div class="main__link">
+              <p class="main__enlace">Postulaciones de Proyectos</p>
+          </div>
+          <div class="main__postulaciones">
+              <a class="solicitud__postulacion" href="{% url 'gestionar_solicitudes' %}">Postulaciones Pendientes</a>
+              <a class="solicitud__postulacion" href="{% url 'gestionar_solicitudes_aceptada' %}">Postulaciones Aceptadas</a>
+              <a class="solicitud__postulacion" href="{% url 'gestionar_solicitudes_rechazada' %}">Postulaciones Rechazadas</a>
+          </div>
+      </div>
+    </aside>
+    <div class="main__portal">
+      <div class="main__actividad">
+        <h2 class="main__h2">Inscripciones Aceptadas</h2>
+
+
+        <ul class="main__lista">
+            <li class="main__item">Rut</li>
+            <li class="main__item">Nombre</li>
+            <li class="main__item">Apellido</li>
+            <li class="main__item">Actividad</li>
+            <li class="main__item">Estado</li>
+        </ul>
+        </div>
+        <div class="main__inscribir">
+            
+            {% if page_obj %}
+            
+                <form class="formulario" method="GET" action="{% url 'gestionar_inscripciones_aceptada' %}">
+                    {% if request.GET %}
+                        <div class="volver">
+                            <a href="{% url 'gestionar_inscripciones_aceptada' %}" class="volver__link">
+                                <img class="volver__imagen" src="{% static 'core/img/flecha-izquierda.svg' %}" alt="">
+                                <p class="volver__texto">Regresar</p>
+                            </a>
+                        </div>
+                            
+                    {% endif %}
+                    <div class="formulario__contenedor">
+                        <input class="formulario__input" name="q" type="search" placeholder="Buscar">
+                        <button class="formulario__submit" type="submit">Buscar</button>
+                    </div>
+                </form>
+            
+                {% for solicitud in page_obj %}
+                    <ul class="main__inscripcion">
+                        <li class="main__data">{{ solicitud.miembro.rut }}</li>
+                        <li class="main__data">{{ solicitud.miembro.first_name }}</li>
+                        <li class="main__data">{{ solicitud.miembro.last_name }}</li>
+                        <li class="main__data">{{ solicitud.actividad.nombre_actividad }}</li> 
+                        <input type="hidden" name="inscripcion_id" value="{{ solicitud.id }}">
+                        <li class="main__data aceptada">{{ solicitud.estado }}</li>
+                    </ul>
+                {% endfor %}
+            
+            {% else %}
+                {% if request.GET %}
+                    <div class="volver">
+                        <a href="{% url 'gestionar_inscripciones_aceptada' %}" class="volver__link">
+                            <img class="volver__imagen" src="{% static 'core/img/flecha-izquierda.svg' %}" alt="">
+                            <p class="volver__texto">Regresar</p>
+                        </a>
+                    </div>
+                    <p class="main__no-inscrito">No hay resultados en la búsqueda</p>
+                {% else %}
+                    <p class="main__no-inscrito">No hay solicitudes por el momento</p>
+                {% endif %}
+ 
+            {% endif %}
+        
+        </div>
+        <div class="main__paginacion">
+            <div class="main__paginator">
+                    
+                {% if page_obj %}
+                    <div class="main__paginador">
+                        <ul class="main__paginate">
+                            
+                            {% if page_obj.has_previous %}
+                                    <a class="main__page main__page--atras" href="?page={{page_obj.previous_page_number}}">Atras</a>
+                            {% endif %}
+                            
+                            {% for pagina in page_obj.paginator.page_range %}
+                                {% if pagina == page_obj.number  %} 
+                                    <a class="main__page pagina-actual" href="?page={{pagina}}">{{ pagina }}</a>
+                                {% else %}
+                                    <a class="main__page main__page--number" href="?page={{pagina}}">{{ pagina }}</a>
+                                {% endif %}
+                            {% endfor %}
+                            
+                            {% if page_obj.has_next %}
+                                <a class="main__page main__page--siguiente" href="?page={{page_obj.next_page_number}}">Siguiente</a>
+                            {% endif %}
+        
+                        </ul>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    
+  
+    <!-- <h2>Solicitudes Aceptadas</h2>
+    <ul>
+      {% for solicitud in inscripciones_aceptadas %}
+        <li>{{ solicitud.miembro.rut }} - {{ solicitud.actividad.nombre }} (Aceptada)</li>
+      {% endfor %}
+    </ul>
+  
+    <h2>Solicitudes Rechazadas</h2>
+    <ul>
+      {% for solicitud in inscripciones_rechazadas %}
+        <li>{{ solicitud.miembro.rut }} - {{ solicitud.actividad.nombre }} (Rechazada)</li>
+      {% endfor %}
+    </ul> -->
+  </div>
+</main>
+{% endblock %}
+
+{% block Footerborder %}
+
+
+        <div class="header__navegacion">
+            <ul class="header__lista">
+                <li class="header__item">
+                    <a class="header__link" aria-current="page" href="{% url 'inicio' %}">
+                        <span>Inicio</span></a>
+                </li>
+                <li class="header__item">
+                    <a class="header__link" aria-current="page"
+                        href="{% url 'listar_noticia' %}">
+                        <span>Noticias</span></a>
+                </li>
+                <li class="header__item">
+                    <a class="header__link" aria-current="page"
+                        href="{% url 'listar_proyectos' %}">
+                        <span>Proyectos</span></a>
+                </li>
+                <li class="header__item">
+                    <a class="header__link" aria-current="page"
+                        href="{% url 'listar_actividad' %}">
+                        <span>Actividades</span></a>
+                </li>
+            </ul>
+        </div>
+  
+{% endblock Footerborder %}
+
+{% block js %}
+    <script src="{% static 'core/js/directivaJDV/misSolicitudesDirectivaJDV/misSolicitudesDirectiva.js' %}"></script>
+{% endblock js %}

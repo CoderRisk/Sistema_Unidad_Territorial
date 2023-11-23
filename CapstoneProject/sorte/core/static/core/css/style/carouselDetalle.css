@@ -1,0 +1,114 @@
+/* Volver hacia una página Anterior */
+
+.volver{
+    display: flex;
+    margin: 2.5rem 0 0 0;
+}
+
+.volver__link{
+    display: flex;
+    text-decoration: none;
+    color: var(--color-black);
+    align-items: center;
+    background-color: #fff;
+    transition: background-color .3s ease, color .3s ease;
+    border-radius: 1.25rem;
+    box-shadow: .0625rem .0625rem .5rem black;
+    padding: .3125rem;
+}
+
+.volver__link:hover{
+    background-color: var(--color-azul);
+    color: #fff;
+    transition: background-color .3s ease, color .3s ease;
+}
+
+.volver__imagen{
+    width: 1.5625rem;
+    margin: 0 0 0 1.25rem;
+}
+
+.volver__texto{
+    margin: 0 1.875rem 0 1.875rem;
+}
+
+/* Imagen */
+
+.contenido{
+    display: grid;
+    justify-items: center;
+    margin: 4.375rem auto;
+    max-width: 43.75rem;
+}
+
+.contenido__picture{
+    max-width: 43.75rem;
+}
+
+.contenido__imagen{
+    width: 100%;
+    margin: 0 auto;
+    border-radius: .625rem;
+    box-shadow: .0625rem .0625rem .1875rem var(--color-black);
+}
+
+.contenido__titular{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.contenido__titulo,
+.contenido__fecha{
+    margin: 1.25rem auto;
+}
+
+.contenido__titulo{
+    text-align: center;
+}
+
+.contenido__fecha{
+    display: flex;
+    gap: .625rem;
+    color: var(--color-celeste-activo);
+    font-weight: 700;
+}
+
+.contenido__tiempo{
+    color: var(--color-black);
+}
+
+.contenido__descripcion{
+    width: 100%;
+    margin: 1.25rem auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: justify;
+    line-height: 1.5;
+    padding: 1.25rem;
+    border-radius: .625rem;
+    box-shadow: .0625rem .0625rem .1875rem rgba(0, 0, 0, 0.822);
+}
+
+.contenido__descripcion p{
+    margin: 1.25rem auto;
+}
+
+/* @media (min-width: 576px) { 
+    .contenido__descripcion{
+        width: 90%;
+    }
+}
+
+@media (min-width: 1000px) { 
+    .contenido__descripcion{
+        width: 80%;
+    }
+}
+
+@media (min-width: 1200px) { 
+    .contenido__descripcion{
+        width: 70%;
+    }
+} */

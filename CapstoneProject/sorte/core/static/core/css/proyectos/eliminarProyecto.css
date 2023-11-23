@@ -1,0 +1,118 @@
+/* Volver hacia una página Anterior */
+
+.volver{
+    display: flex;
+    margin: 2.5rem 0 0 0;
+}
+
+.volver__link{
+    display: flex;
+    text-decoration: none;
+    color: var(--color-black);
+    align-items: center;
+    background-color: #fff;
+    transition: background-color .3s ease, color .3s ease;
+    border-radius: 1.25rem;
+    box-shadow: .0625rem .0625rem .5rem black;
+    padding: .3125rem;
+}
+
+.volver__link:hover{
+    background-color: var(--color-azul);
+    color: #fff;
+    transition: background-color .3s ease, color .3s ease;
+}
+
+.volver__imagen{
+    width: 1.5625rem;
+    margin: 0 0 0 1.25rem;
+}
+
+.volver__texto{
+    margin: 0 1.875rem 0 1.875rem;
+}
+
+/* Proyecto */
+
+.main__titulo,
+.main__subtitulo{
+    text-align: center;
+    margin: 2.5rem 0;
+}
+
+.main__span{
+    font-weight: 700;
+}
+
+.formulario{
+    display: flex;
+    flex-direction: column;
+    margin: 4.375rem 0;
+}
+
+.formulario__picture{
+    display: flex;
+    justify-content: center;
+}
+
+.formulario__imagen{
+    width: 100%;
+    margin: 0 auto;
+    border-radius: .625rem;
+}
+
+.formulario__botones{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 2.5rem 0;
+}
+
+.formulario__eliminar{
+    border: none;
+    background: rgb(203, 57, 57);
+    background: linear-gradient(90deg, rgb(203, 57, 57) 0%, rgbrgb(231, 76, 76)0%, rrgb(238, 38, 38)100%);
+    color: #fff;
+    padding: .3125rem .625rem;
+    border-radius: .625rem;
+    box-shadow: .125rem .125rem .3125rem rgba(251, 0, 0, 0.372);
+    cursor: pointer;
+    text-decoration: none;
+    transition: transform .3s ease;
+    text-align: center;
+    margin: 0 .625rem;
+    fill: var(--color-white);
+}
+
+.formulario__eliminar:hover{
+    transform: scale(1.2);
+    transition: transform .3s ease;
+}
+
+.formulario__cancelar{
+    text-decoration: none;
+    color: var(--color-black);
+    transition: background-color .3s ease, color .3s ease;
+    padding: .625rem 1.25rem;
+    margin: 0 .3125rem;
+    border-radius: .625rem;
+}
+
+.formulario__cancelar:hover{
+    background-color: var(--color-verde);
+    color: var(--color-white);
+    transition: background-color .3s ease, color .3s ease;
+}
+
+@media (min-width: 576px) { 
+    .formulario__botones{
+        flex-direction: row;
+    }
+}
+
+@media (min-width: 768px) { 
+    .formulario__imagen{
+        max-width: 25rem;
+    }
+}

@@ -1,0 +1,160 @@
+/*               Seccion Carousel                */
+
+.carousel{
+    display: flex;
+    justify-content: center;
+    padding: 6.25rem 0;
+}
+
+.carousel__contenedor{
+    padding: 0;
+    max-width: 40rem;
+    max-height: 26.6875rem;
+    overflow: hidden;
+    position: relative;
+    border-radius: 1.25rem;
+    border: .0625rem solid black;
+}
+
+.carousel__slider{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    width: 300%; 
+    transition: left .7s ease-in-out;
+    position: relative;
+}
+
+.transicion-activa {
+    transition: all .5s ease-in-out;
+}
+
+.carousel__item{
+    width: 100%; 
+    height: auto;
+    position: relative;
+}
+
+.carousel__imagen{
+    margin: 0 auto;
+    max-width: 100%;
+    height: auto;
+    transition: transform .3s ease;
+}
+
+.carousel__texto{
+    position: absolute;
+    text-align: center;
+    bottom: 20%;
+    left: 50%;
+    transform: translateX(-50%);
+    color: var(--color-white);
+    box-shadow: .0625rem .0625rem .1875rem var(--color-black);
+    background-color: rgba(0, 0, 0, 0.635);
+    border-radius: .3125rem;
+    text-shadow: .0625rem .0625rem .1875rem var(--color-black);
+    padding: .3125rem;
+    font-size: .75rem;
+    transition: all 0.5s ease-in-out;
+    z-index: 1;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.carousel__atras, .carousel__siguiente{
+    position: absolute;
+    width: 2.5rem;
+    height: 2.5rem;
+    z-index: 1;
+    color: #fff;
+    left: 10%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    transition: all .3s ease;
+    cursor: pointer;
+}
+
+.carousel__atras:hover, 
+.carousel__siguiente:hover{
+    width: 3rem;
+    height: 3rem;
+    transition: width .3s ease, height .3s ease;
+}
+
+
+.carousel__siguiente{
+    left: 90%;
+}
+
+svg{
+    filter: drop-shadow(2px 1px 2px rgb(0, 0, 0));
+}
+
+.carousel__puntos{
+    position: absolute;
+    width: 100%;
+    height: 2.5rem;
+    z-index: 1;
+    top: 80%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.punto{
+    display: block;
+    width: .625rem;
+    height: .625rem;
+    background-color: #c6cdda;
+    border: .0625rem solid black;
+    box-shadow: 2px 2px rgba(0, 0, 0, 0.804);
+    border-radius: 1.25rem;
+    margin: 0 .625rem ;
+    transition: transform .3s ease ,width .3s ease;
+    cursor: pointer;
+}
+
+.punto:hover{
+    width: 1.25rem;
+    transform: scale(1.3);
+    transition: transform .3s ease, width .3s ease;
+}
+
+.activo{
+    background-color:var(--color-azul);
+    width: 1.25rem;
+    transition: width .3s;
+}
+
+@media (min-width: 768px) { 
+    .carousel__atras{
+        top: 55%;
+        left: 5%;
+    }
+
+    .carousel__siguiente{
+        left: 95%;
+        top: 55%;
+    }
+
+    .carousel__puntos{
+        top: 90%;
+    }
+
+    .carousel__texto{
+        font-size: 1.125rem;
+    }
+
+    .carousel__texto:hover{
+        font-size: 1.25rem;
+        background-color: var(--color-azul);
+        transition: font-size .5s ease, background-color .5s ease;
+    }
+
+    .carousel__texto:hover + .carousel__imagen{
+        transform: scale(1.1);
+        transition: transform .3s ease;
+    }
+
+   
+}
