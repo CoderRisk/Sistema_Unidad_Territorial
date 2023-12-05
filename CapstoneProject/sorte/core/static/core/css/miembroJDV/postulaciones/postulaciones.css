@@ -118,10 +118,11 @@
 }
 
 .main__postular{
-    padding: 0;
+    padding: .625rem;
     margin: 2.5rem auto;
     list-style: none;
     display: flex;
+    flex-direction: column;
     justify-content: space-between;
     background-color: #3b89f74c;
     border-radius: .625rem;
@@ -138,6 +139,48 @@
     font-size: .5625rem;
     margin: 0 .1875rem;
     padding: .625rem 0;
+}
+
+.main__data:nth-child(1){
+    overflow: auto;
+    white-space: nowrap;
+    max-width: 6.25rem;
+    padding: .0625rem;
+}
+
+.main__data:nth-child(1)::-webkit-scrollbar {
+    width: .75rem;
+    height: .1875rem;
+  }
+  
+.main__data:nth-child(1)::-webkit-scrollbar-thumb {
+    background-color: var(--color-celeste-activo);
+    border-radius: 6px;
+}
+
+.main__data:nth-child(1)::-webkit-scrollbar-track {
+    background-color: #f1f1f100;
+}
+
+.main__data:nth-child(4){
+    overflow: auto;
+    white-space: nowrap;
+    max-width: 6.25rem;
+    padding: .0625rem;
+}
+
+.main__data:nth-child(4)::-webkit-scrollbar {
+    width: .75rem;
+    height: .1875rem;
+  }
+  
+.main__data:nth-child(4)::-webkit-scrollbar-thumb {
+    background-color: var(--color-celeste-activo);
+    border-radius: 6px;
+}
+
+.main__data:nth-child(4)::-webkit-scrollbar-track {
+    background-color: #f1f1f100;
 }
 
 .main__link{
@@ -250,8 +293,8 @@
     color: var(--color-black);
     font-weight: 700;
     padding: .625rem 0;
-    border-top-right-radius: .625rem;
-    border-bottom-right-radius: .625rem;
+    border-radius: .3125rem;
+    margin: .625rem auto;
 }
 
 .aceptada{
@@ -274,6 +317,16 @@
 
 .main__postulacion .volver{
     margin: 2.5rem 0;
+}
+
+@media (min-width: 400px) { 
+    .main__postular{
+        flex-direction: row;
+    }    
+
+    .pendiente{
+        margin: 0;
+    }
 }
 
 @media (min-width: 576px) { 

@@ -91,8 +91,19 @@
                             </div>
                             {% endif %}
                         </div>
-    
+
                         <div class="formulario__flex">
+                            {{ form.inicio_postulacion }}
+                            <label class="formulario__label" for="id_inicio_postulacion">{{ form.inicio_postulacion.label }}</label>
+                            {% if form.errors.inicio_postulacion %}
+                            <div class="error">
+                                <strong class="error__mensaje">Error en inicio de postulación:</strong>
+                                {{ form.errors.inicio_postulacion }}
+                            </div>
+                            {% endif %}
+                        </div>
+    
+                        <!-- <div class="formulario__flex">
                             <label class="formulario__label" for="id_fecha_inicio">{{ form.fecha_inicio.label }}</label>
                             {{ form.fecha_inicio }}
 
@@ -103,8 +114,8 @@
                                 </div>
                             {% endif %}
                         </div>  
-                        
-                        <div class="formulario__flex">
+                         -->
+                        <!-- <div class="formulario__flex">
                             <label class="formulario__label" for="id_fecha_inicio_hora">{{ form.fecha_inicio_hora.label }}</label>
                             {{ form.fecha_inicio_hora }}
                 
@@ -114,9 +125,42 @@
                                     {{ form.errors.fecha_inicio_hora }}
                                 </div>
                             {% endif %}
+                        </div> -->
+
+                        <div class="formulario__flex">
+                            {{ form.cierre_postulacion }}
+                            <label class="formulario__label" for="id_cierre_postulacion">{{ form.cierre_postulacion.label }}</label>
+                            {% if form.errors.cierre_postulacion %}
+                            <div class="error">
+                                <strong class="error__mensaje">Error en fin de postulación:</strong>
+                                {{ form.errors.cierre_postulacion }}
+                            </div>
+                            {% endif %}
+                        </div>
+
+                        <div class="formulario__flex">
+                            {{ form.inicio_del_proyecto }}
+                            <label class="formulario__label" for="id_inicio_del_proyecto">{{ form.inicio_del_proyecto.label }}</label>
+                            {% if form.errors.inicio_del_proyecto %}
+                            <div class="error">
+                                <strong class="error__mensaje">Error en marcha del proyecto:</strong>
+                                {{ form.errors.inicio_del_proyecto }}
+                            </div>
+                            {% endif %}
+                        </div>
+
+                        <div class="formulario__flex">
+                            {{ form.fin_del_proyecto }}
+                            <label class="formulario__label" for="id_fin_del_proyecto">{{ form.fin_del_proyecto.label }}</label>
+                            {% if form.errors.fin_del_proyecto %}
+                            <div class="error">
+                                <strong class="error__mensaje">Error en fin del proyecto:</strong>
+                                {{ form.errors.fin_del_proyecto }}
+                            </div>
+                            {% endif %}
                         </div>
     
-                        <div class="formulario__flex">
+                        <!-- <div class="formulario__flex">
                             {{ form.fecha_termino }}
                             <label class="formulario__label" for="id_fecha_termino">{{ form.fecha_termino.label }}</label>
                             {% if form.errors.fecha_termino %}
@@ -137,7 +181,7 @@
                                     {{ form.errors.fecha_termino_hora  }}
                                 </div>
                             {% endif %}
-                        </div>
+                        </div> -->
 
     
                         <button type="submit" class="formulario__submit">Crear Proyecto</button>

@@ -95,7 +95,7 @@ WSGI_APPLICATION = 'sorte.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': "project2",
+        'NAME': "project3",
         'USER': 'root',
         'PASSWORD': '1234',
         'HOST': 'localhost',

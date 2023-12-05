@@ -215,6 +215,36 @@
     transition: color .3s ease, background-color .3s ease, border .3s ease, text-shadow .3s ease;
 }
 
+
+.wait{
+    background-color: #dec821;
+    color: var(--color-black);
+    cursor: not-allowed;
+}
+
+.wait:hover{
+    background-color: #c1b029;
+    color: var(--color-black);
+    text-shadow: .0625rem 0 .125rem #c1b029;
+    font-weight: 700;
+    border: .0625rem solid #c1b029;
+}
+
+.desactivado{
+    background-color: var(--color-rojo);
+    cursor: not-allowed;
+    color: var(--color-black);
+}
+
+.desactivado:hover{
+    background-color: var(--color-rojo);
+    color: var(--color-black);
+    text-shadow: .0625rem 0 .125rem var(--color-rojo);
+    font-weight: 700;
+    border: .0625rem solid var(--color-rojo);
+}
+
+
 @media (min-width: 578px) { 
     .volver__texto{
         font-size: .9375rem;
@@ -234,5 +264,7 @@
     .main__span{
         display: grid;
         grid-template-columns: repeat(2, 1fr);
+        align-items: center;
+        justify-items: center;
     }
 }

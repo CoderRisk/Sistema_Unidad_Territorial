@@ -369,6 +369,8 @@
     justify-content: center;
     transition: transform .3s ease;
     cursor: wait;
+    grid-column: 1 / 3;
+    grid-row: 7 / 8;
 }
 
 .load:hover{

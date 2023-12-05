@@ -2,6 +2,7 @@
 
 {% load static %}
 
+{% load tz %}
 
 {% block extrastyle %}
     <link rel="stylesheet" href="{% static 'core/css/actividades/verMasActividades.css' %}">
@@ -72,20 +73,31 @@
             {% else %}
                 <span class="actividad__span">Cupos disponible:<p class="actividad__cuposTotales">{{ actividades.cupos_disponibles }}</p></span>
             {% endif %}
-            <span class="actividad__span">Fecha de Actividad:<p class="actividad__fechaActividad">{{actividades.fecha_actividad}}</p></span>
-            <span class="actividad__span">Hora de Inicio:<p class="actividad__fechaInicio">{{actividades.hora_inicio}}</p></span>
-            <span class="actividad__span">Hora de Término:<p class="actividad__fechaTermino">{{actividades.hora_termino}}</p></span>
+            <span class="main__span">Inicio de Inscripción:<p class="main__fechaActividad">{{actividad.inicio_inscripcion}}</p></span>
+            <span class="main__span">Cierre de Inscripción:<p class="main__fechaInicio">{{actividad.cierre_inscripcion}}</p></span>
+            <span class="main__span">Inicio de Actividad:<p class="main__fechaTermino">{{actividad.inicio_actividad}}</p></span>
+            <span class="main__span">Fin de Actividad:<p class="main__fechaTermino">{{actividad.fin_actividad}}</p></span>
             
             {% if user.is_staff %}
 
             {% elif user.is_authenticated %}
 
                 
-                {% if actividades.cupos_disponibles == 0 %}
-                    <a href="{% url 'inscribir_actividad' actividades.id %}" class="actividad__inscribirse agotado">Inscribirse</a>
-                {% else %}   
-                    <a href="{% url 'inscribir_actividad' actividades.id %}" class="actividad__inscribirse">Inscribirse</a>
-                {% endif %}
+                {% localtime on %}
+                    {% now "Y-m-d H:i:s" as local_now %}
+                    {% if local_now >= actividades.inicio_inscripcion|date:"Y-m-d H:i:s" and local_now <= actividades.cierre_inscripcion|date:"Y-m-d H:i:s" %}
+                        <!-- Tu código aquí -->
+                        {% if actividades.cupos_disponibles == 0 %}
+                            <a href="{% url 'inscribir_actividad' actividades.id %}" class="actividad__inscribirse agotado">Agotado</a>
+                        {% else %}  
+                            <a href="{% url 'inscribir_actividad' actividades.id %}" class="actividad__inscribirse">Inscribirse</a>
+                        {% endif %}
+                    {% elif local_now < actividades.inicio_inscripcion|date:"Y-m-d H:i:s"  %}
+                        <a class="actividad__inscribirse wait">Esperar</a>
+                    {% else %}
+                        <a class="actividad__inscribirse desactivado">Finalizado</a>
+                    {% endif %}
+                {% endlocaltime %}
                     
             {% else %}
                 

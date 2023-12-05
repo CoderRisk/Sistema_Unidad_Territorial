@@ -93,50 +93,46 @@
         </div>
     
         <div class="formulario__flex">
-            <label class="formulario__label" for="id_fecha_inicio">{{ form.fecha_inicio.label }}</label>
-            {{ form.fecha_inicio }}
-
-            {% if form.errors.fecha_inicio %}
-                <div class="error">
-                    <strong class="error__mensaje">Error en la Fecha Inicio:</strong>
-                    {{ form.errors.fecha_inicio }}
-                </div>
+            <label class="formulario__label" for="id_inicio_postulacion">{{ form.inicio_postulacion.label }}</label>
+            <input class="formulario__input" type="datetime-local" name="{{ form.inicio_postulacion.name }}" id="id_inicio_postulacion" value="{{ proyectos.inicio_postulacion|date:'Y-m-d\TH:i' }}">
+            {% if form.errors.inicio_postulacion %}
+            <div class="error">
+                <strong class="error__mensaje">Error en inicio de postulación:</strong>
+                {{ form.errors.inicio_postulacion }}
+            </div>
             {% endif %}
         </div>
 
         <div class="formulario__flex">
-            <label class="formulario__label" for="id_fecha_inicio_hora">{{ form.fecha_inicio_hora.label }}</label>
-            {{ form.fecha_inicio_hora }}
-
-            {% if form.errors.fecha_inicio_hora %}
-                <div class="error">
-                    <strong class="error__mensaje">Error en Hora de Inicio:</strong>
-                    {{ form.errors.fecha_inicio_hora }}
-                </div>
+            <label class="formulario__label" for="id_cierre_postulacion">{{ form.cierre_postulacion.label }}</label>
+            <input class="formulario__input" type="datetime-local" name="{{ form.cierre_postulacion.name }}" id="id_cierre_postulacion" value="{{ proyectos.cierre_postulacion|date:'Y-m-d\TH:i' }}">
+            {% if form.errors.cierre_postulacion %}
+            <div class="error">
+                <strong class="error__mensaje">Error en fin de postulación:</strong>
+                {{ form.errors.cierre_postulacion }}
+            </div>
             {% endif %}
         </div>
     
         <div class="formulario__flex">
-            <label class="formulario__label" for="id_fecha_termino">{{ form.fecha_termino.label }}</label>
-            {{ form.fecha_termino }}
-
-            {% if form.errors.fecha_termino  %}
-                <div class="error">
-                    <strong class="error__mensaje">Error en Fecha Término:</strong>
-                    {{ form.errors.fecha_termino  }}
-                </div>
+            <label class="formulario__label" for="id_inicio_del_proyecto">{{ form.inicio_del_proyecto.label }}</label>
+            <input class="formulario__input" type="date" name="{{ form.inicio_del_proyecto.name }}" id="id_inicio_del_proyecto" value="{{ proyectos.inicio_del_proyecto|date:'Y-m-d' }}">
+            {% if form.errors.inicio_del_proyecto %}
+            <div class="error">
+                <strong class="error__mensaje">Error en marcha del proyecto:</strong>
+                {{ form.errors.inicio_del_proyecto }}
+            </div>
             {% endif %}
         </div>
 
         <div class="formulario__flex">
-            <label class="formulario__label" for="id_fecha_termino_hora">{{ form.fecha_termino_hora.label }}</label>
-            {{ form.fecha_termino_hora }}
-
-            {% if form.errors.fecha_termino_hora %}
-                <div class="error">
-                    <strong class="error__mensaje">Error en Hora de Término:</strong>
-                    {{ form.errors.fecha_termino_hora  }}
-                </div>
+            <label class="formulario__label" for="id_fin_del_proyecto">{{ form.fin_del_proyecto.label }}</label>
+            <input class="formulario__input" type="date" name="{{ form.fin_del_proyecto.name }}" id="id_fin_del_proyecto" value="{{ proyectos.fin_del_proyecto|date:'Y-m-d' }}">
+            {% if form.errors.fin_del_proyecto %}
+            <div class="error">
+                <strong class="error__mensaje">Error en fin del proyecto:</strong>
+                {{ form.errors.fin_del_proyecto }}
+            </div>
             {% endif %}
         </div>
     

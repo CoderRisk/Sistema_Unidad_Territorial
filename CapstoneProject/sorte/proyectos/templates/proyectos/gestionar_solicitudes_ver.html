@@ -1,0 +1,222 @@
+{% extends 'core/base.html' %}
+
+{% load static %}
+
+
+{% block extrastyle %}
+    <link rel="stylesheet" href="{% static 'core/css/directivaJDV/postulaciones/gestionar_solicitudes_ver.css' %}">
+{% endblock extrastyle %}
+    
+
+{% block Headerborder %}
+<div class="header__navegacion">
+    <ul class="header__lista">
+        <li class="header__item">
+            <a class="header__link" aria-current="page" href="{% url 'inicio' %}">Inicio</a>
+        </li>
+        <li class="header__item">
+            <a class="header__link" aria-current="page"
+                href="{% url 'listar_noticia' %}">Noticias</a>
+        </li>
+        <li class="header__item">
+            <a class="header__link" aria-current="page"
+                href="{% url 'listar_proyectos' %}">Proyectos</a>
+        </li>
+        <li class="header__item">
+            <a class="header__link" aria-current="page"
+                href="{% url 'listar_actividad' %}">Actividades</a>
+        </li>
+    </ul>
+</div>
+{% endblock Headerborder %}
+
+
+
+{% block content %}
+<main class="main">
+    <div class="main__contenedor container">
+      <aside class="main__aside">
+        <div class="main__titulo">
+          <h2 class="main__h2">Administra y Gestiona</h2>
+        </div>
+        <div class="main__navegacion">
+            <div class="main__link">
+                <p class="main__enlace">Inscripciones de Actividades</p>
+            </div>
+            <div class="main__inscripciones">
+                <a class="solicitud__inscripcion" href="{% url 'gestionar_inscripciones' %}">Actividades Pendientes</a>
+                <a class="solicitud__inscripcion" href="{% url 'gestionar_inscripciones_aceptada' %}">Actividades Aceptadas</a>
+                <a class="solicitud__inscripcion" href="{% url 'gestionar_inscripciones_rechazada' %}">Actividades Rechazadas</a>
+            </div>
+            <div class="main__link">
+                <p class="main__enlace activo">Postulaciones de Proyectos</p>
+            </div>
+            <div class="main__postulaciones">
+                <a class="solicitud__postulacion activo" href="{% url 'gestionar_solicitudes' %}">Postulaciones Pendientes</a>
+                <a class="solicitud__postulacion" href="{% url 'gestionar_solicitudes_aceptada' %}">Postulaciones Aceptadas</a>
+                <a class="solicitud__postulacion" href="{% url 'gestionar_solicitudes_rechazada' %}">Postulaciones Rechazadas</a>
+            </div>
+        </div>
+      </aside>
+      <div class="main__portal">
+          <div class="main__proyecto">
+            <h2 class="main__h2">Postulacion de {{ solicitud.miembro.first_name }} {{solicitud.miembro.last_name}}</h2>
+  
+          </div>
+          <div class="main__postulacion">
+
+            <div class="volver">
+                <a href="{% url 'gestionar_solicitudes' %}" class="volver__link">
+                    <img class="volver__imagen" src="{% static 'core/img/flecha-izquierda.svg' %}" alt="">
+                    <p class="volver__texto">Regresar</p>
+                </a>
+            </div>
+                    
+                  <form class="formulario__solicitudes" method="post" action="{% url 'gestionar_solicitudes' %}" enctype="multipart/form-data"> {% csrf_token %}
+                    
+                      <ul class="main__postular">
+                        <div class="user">
+                            <svg class="user__svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+                                <path d="M224 256A128 128 0 1 0 224 0a128 128 0 1 0 0 256zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512H418.3c16.4 0 29.7-13.3 29.7-29.7C448 383.8 368.2 304 269.7 304H178.3z"/>
+                            </svg>
+                        </div>
+                          <li class="main__datos">Datos de Solicitud</li>
+                          <li class="main__data">Proyecto: {{solicitud.proyecto}}</li>
+                          <li class="main__data">Rut: {{solicitud.miembro}}</li>
+                          <li class="main__data">Nombre: {{solicitud.miembro.first_name}}</li>
+                          <li class="main__data">Apellido: {{solicitud.miembro.last_name}}</li> 
+                          <li class="main__data">Fecha de Solicitud: {{solicitud.fecha_solicitud}}</li> 
+                          <li class="main__file">Archivos</li>
+                            <ul class="main__archivo">
+                            {% for archivo in archivos_solicitud %}
+                            
+                                <li class="main__files">
+                                    <a class="main__archivos" href="{{ archivo.archivo_adjunto.archivo.url }}" target="_blank">{{ archivo.nombre_archivo }}</a><br>
+                                </li>
+                            {% endfor %}
+                            </ul>
+                          <input type="hidden" name="solicitud_id" value="{{ solicitud.id }}">
+                          <div class="main__botones">
+                            <button type="submit" name="decision" value="aceptar" class="main__aceptar">Aceptar</button>
+                              <div class="load__aceptar">
+                                  <div class="sk-chase">
+                                      <div class="sk-chase-dot"></div>
+                                      <div class="sk-chase-dot"></div>
+                                      <div class="sk-chase-dot"></div>
+                                      <div class="sk-chase-dot"></div>
+                                      <div class="sk-chase-dot"></div>
+                                      <div class="sk-chase-dot"></div>
+                                  </div>
+                              </div>
+                            <button type="submit" name="decision" value="rechazar" class="main__rechazar">Rechazar</button>
+                              <div class="load__rechazar">
+                                  <div class="sk-chase">
+                                      <div class="sk-chase-dot"></div>
+                                      <div class="sk-chase-dot"></div>
+                                      <div class="sk-chase-dot"></div>
+                                      <div class="sk-chase-dot"></div>
+                                      <div class="sk-chase-dot"></div>
+                                      <div class="sk-chase-dot"></div>
+                                  </div>
+                              </div>                      
+                          </div>
+                      </ul>
+                  </form>
+
+                  
+  
+              
+              
+
+                  
+<!--               
+                  {% if request.GET %}
+                      <div class="volver">
+                          <a href="{% url 'gestionar_solicitudes' %}" class="volver__link">
+                              <img class="volver__imagen" src="{% static 'core/img/flecha-izquierda.svg' %}" alt="">
+                              <p class="volver__texto">Regresar</p>
+                          </a>
+                      </div>
+                      <p class="main__no-postulado">No hay resultados en la búsqueda</p>
+                  {% else %}
+                      <p class="main__no-postulado">No hay solicitudes por el momento</p>
+                  {% endif %} -->
+                  
+                  
+     
+          </div>
+          <!-- <div class="main__paginacion">
+            <div class="main__paginator">
+                    
+                {% if page_obj %}
+                    <div class="main__paginador">
+                        <ul class="main__paginate">
+                            
+                            {% if page_obj.has_previous %}
+                                    <a class="main__page main__page--atras" href="?page={{page_obj.previous_page_number}}">Atras</a>
+                            {% endif %}
+                            
+                            {% for pagina in page_obj.paginator.page_range %}
+                                {% if pagina == page_obj.number  %} 
+                                    <a class="main__page pagina-actual" href="?page={{pagina}}">{{ pagina }}</a>
+                                {% else %}
+                                    <a class="main__page main__page--number" href="?page={{pagina}}">{{ pagina }}</a>
+                                {% endif %}
+                            {% endfor %}
+                            
+                            {% if page_obj.has_next %}
+                                <a class="main__page main__page--siguiente" href="?page={{page_obj.next_page_number}}">Siguiente</a>
+                            {% endif %}
+        
+                        </ul>
+                    </div>
+                {% endif %}
+            </div>
+          </div> -->
+      </div>
+   
+    </div>
+  </main>
+  
+    
+{% endblock content %}
+
+{% block Footerborder %}
+
+
+        <div class="header__navegacion">
+            <ul class="header__lista">
+                <li class="header__item">
+                    <a class="header__link" aria-current="page" href="{% url 'inicio' %}">
+                        <span>Inicio</span></a>
+                </li>
+                <li class="header__item">
+                    <a class="header__link" aria-current="page"
+                        href="{% url 'listar_noticia' %}">
+                        <span>Noticias</span></a>
+                </li>
+                <li class="header__item">
+                    <a class="header__link" aria-current="page"
+                        href="{% url 'listar_proyectos' %}">
+                        <span>Proyectos</span></a>
+                </li>
+                <li class="header__item">
+                    <a class="header__link" aria-current="page"
+                        href="{% url 'listar_actividad' %}">
+                        <span>Actividades</span></a>
+                </li>
+            </ul>
+        </div>
+ 
+  
+{% endblock Footerborder %}
+
+
+
+{% block js %}
+<script src="{% static 'core/js/directivaJDV/misSolicitudesDirectivaJDV/misSolicitudesDirectivaPost.js' %}"></script>
+<script src="{% static 'core/js/directivaJDV/proyecto/gestionarProyecto.js' %}"></script>
+{% endblock js %}
+    
+    
+

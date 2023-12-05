@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from .models import Actividad, Inscripcion
+from .models import Actividad, Inscripcion, SolicitudInscripcion
 from .forms import ActividadForm, InscripcionForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.admin.views.decorators import staff_member_required
@@ -55,33 +55,35 @@ def crear_actividad(request):
         if form.is_valid():
             actividad = form.save(commit=False)
 
-            fecha_actividad = form.cleaned_data['fecha_actividad']
-            hora_inicio = form.cleaned_data['hora_inicio']
-            fecha_actividad_tiempo_inicio = datetime.combine(fecha_actividad, hora_inicio)
+            inicio_inscripcion = form.cleaned_data['inicio_inscripcion']
+            cierre_inscripcion = form.cleaned_data['cierre_inscripcion']
+            inicio_actividad = form.cleaned_data['inicio_actividad']
+            fin_actividad = form.cleaned_data['fin_actividad']
 
-            hora_termino = form.cleaned_data['hora_termino']
-            fecha_actividad_tiempo_termino = datetime.combine(fecha_actividad, hora_termino)
-
-            if hora_inicio >= hora_termino:
-                form.add_error('hora_inicio', 'La hora de inicio debe ser menor a la hora de término.')
-             
+            if inicio_inscripcion >= cierre_inscripcion:
+                form.add_error('inicio_inscripcion', 'La fecha de inicio de inscripción debe ser menor a la fecha de cierre de inscripción.')
             
-            if hora_termino <= hora_inicio:
-                form.add_error('hora_termino', 'La hora de término debe ser mayor a la hora de inicio.')
-              
+            if cierre_inscripcion <= inicio_inscripcion:
+                form.add_error('cierre_inscripcion', 'La fecha de cierre de inscripción debe ser mayor a la fecha de inicio de inscripción.')
+
+            if inicio_actividad <= cierre_inscripcion.date():
+                form.add_error('inicio_actividad', 'La fecha de inicio de actividad debe ser mayor a la fecha de cierre de inscripción.')
+
+            if fin_actividad <= inicio_actividad:
+                form.add_error('fin_actividad', 'La fecha del fin de la actividad debe ser mayor a la fecha de inicio de actividad.')
+
             if form.errors:
                 # Si hay errores, renderiza nuevamente el formulario con los errores personalizados.
                 return render(request, 'actividades/crear_actividad.html', {'form': form})
 
-            actividad.fecha_actividad_tiempo_inicio = fecha_actividad_tiempo_inicio
-            actividad.fecha_actividad_tiempo_termino = fecha_actividad_tiempo_termino
+            actividad.inicio_inscripcion = inicio_inscripcion
+            actividad.cierre_inscripcion = cierre_inscripcion
 
             actividad.save()
 
             messages.success(request, '¡La actividad ha sido creada con éxito!')
             return redirect('listar_actividad')
-        else:
-            print(form)
+  
     else:
         form = ActividadForm()
     return render(request, 'actividades/crear_actividad.html', {'form': form})
@@ -96,48 +98,39 @@ def editar_actividad(request, pk):
         form = ActividadForm(request.POST, request.FILES, instance=actividades)
         if form.is_valid():
 
-            # Combina fecha y hora antes de guardar en el modelo
-            fecha_inicio = form.cleaned_data['fecha_actividad']
-            fecha_inicio_hora = form.cleaned_data['hora_inicio']
-            fecha_tiempo_inicio = datetime.combine(fecha_inicio, fecha_inicio_hora)
+            inicio_inscripcion = form.cleaned_data['inicio_inscripcion']
+            cierre_inscripcion = form.cleaned_data['cierre_inscripcion']
+            inicio_actividad = form.cleaned_data['inicio_actividad']
+            fin_actividad = form.cleaned_data['fin_actividad']
 
-            fecha_termino = form.cleaned_data['fecha_actividad']
-            fecha_termino_hora = form.cleaned_data['hora_termino']
-            fecha_date_termino = datetime.combine(fecha_termino, fecha_termino_hora)
-
-            if fecha_inicio_hora >= fecha_termino_hora:
-                form.add_error('hora_inicio', 'La hora de inicio debe ser menor a la hora de término.')
-             
+            if inicio_inscripcion >= cierre_inscripcion:
+                form.add_error('inicio_inscripcion', 'La fecha de inicio de inscripción debe ser menor a la fecha de cierre de inscripción.')
             
-            if fecha_termino_hora <= fecha_inicio_hora:
-                form.add_error('hora_termino', 'La hora de término debe ser mayor a la hora de inicio.')
-              
+            if cierre_inscripcion <= inicio_inscripcion:
+                form.add_error('cierre_inscripcion', 'La fecha de cierre de inscripción debe ser mayor a la fecha de inicio de inscripción.')
+
+            if inicio_actividad <= cierre_inscripcion.date():
+                form.add_error('inicio_actividad', 'La fecha de inicio de actividad debe ser mayor a la fecha de cierre de inscripción.')
+
+            if fin_actividad <= inicio_actividad:
+                form.add_error('fin_actividad', 'La fecha del fin de la actividad debe ser mayor a la fecha de inicio de actividad.')
+
             if form.errors:
                 # Si hay errores, renderiza nuevamente el formulario con los errores personalizados.
                 return render(request, 'actividades/editar_actividad.html', {'form': form, 'actividades': actividades})
 
             # Actualiza el campo en el modelo
-            actividades.fecha_actividad_tiempo_inicio = fecha_tiempo_inicio
-            actividades.fecha_actividad_tiempo_termino = fecha_date_termino
+            actividades.inicio_inscripcion = inicio_inscripcion
+            actividades.cierre_inscripcion = cierre_inscripcion
 
             form.save()
 
-            actividad = actividades.fecha_creacion_actividad
+            # actividad = actividades.fecha_creacion_actividad
 
             messages.success(request, '¡La actividad ha sido editada con éxito!')
             return redirect('listar_actividad')
-        else:
-            # Acceder a los datos limpios de un campo específico
-            hora_inicio = form.data.get('hora_inicio')
-            hora_termino = form.data.get('hora_termino')
+      
 
-            if hora_inicio and hora_termino and hora_inicio > hora_termino:
-                # Agregar un error al campo hora_inicio
-                form.add_error('hora_inicio', 'La hora de inicio no puede ser posterior a la hora de término.')
-
-            if hora_inicio and hora_termino and hora_termino < hora_inicio:
-                # Agregar un error al campo hora_inicio
-                form.add_error('hora_termino', 'La hora de término no puede ser anterior a la hora de inicio.')
     else:
         form = ActividadForm(instance=actividades)
     return render(request, 'actividades/editar_actividad.html', {'form': form, 'actividades': actividades})
@@ -164,6 +157,7 @@ def inscribir_actividad(request, actividad_id):
     if actividad.cupos_disponibles > 0:
         if request.method == 'POST':
             form = InscripcionForm(request.POST)
+            print(form.errors)
             if form.is_valid():
                 inscripcion = form.save(commit=False)
                 inscripcion.actividad = actividad
@@ -179,6 +173,13 @@ def inscribir_actividad(request, actividad_id):
                 else:
                     inscripcion.save()
                     inscripcion.fecha_solicitud = datetime.now()
+
+                    archivos_adjuntos = request.FILES.getlist('archivos_adjuntos')
+
+                    if archivos_adjuntos:
+                        for archivo in archivos_adjuntos:
+                            SolicitudInscripcion.objects.create(campo_inscripcion=inscripcion, archivo=archivo)
+                        
                     
                     
                     actividad.save()
@@ -228,7 +229,6 @@ def gestionar_inscripciones(request):
         inscripcion_id = request.POST.get('inscripcion_id')
         decision = request.POST.get('decision')
         inscripcion = Inscripcion.objects.get(id=inscripcion_id)
-        nombre_actividad = inscripcion.actividad.nombre_actividad
 
         if decision == 'aceptar':
             inscripcion.estado = 'aceptada'
@@ -243,7 +243,7 @@ def gestionar_inscripciones(request):
                     inscripcion.save()
                     actividad.save()
                     Inscripcion.objects.filter(actividad=actividad, estado='pendiente').exclude(id=inscripcion_id).update(estado='rechazada')
-                    messages.info(request, 'Se ha ocupado el ultimo cupo disponible, ahora las solicitudes restantes estaran rechazadas')
+                    messages.info(request, 'Se ha ocupado el ultimo cupo disponible, ahora las solicitudes restantes estarán rechazadas')
                     return HttpResponseRedirect(url)
                 else:
                     messages.success(request, f'Solicitud aceptada exitosamente.')
@@ -255,12 +255,32 @@ def gestionar_inscripciones(request):
                 cupos_agotados = actividad.cupos_disponibles <= 0 if actividad else None
 
             actividad.save()
-            send_mail('Inscripción Aceptada', 'Tu Inscripción ha sido aceptada, por lo tanto, puedes participar en nuestra actividad!', 'cuentaprueba4326@gmail.com', [inscripcion.miembro.email])
+            # 'Confirmación de Inscripción',
+            # f'Hola {request.user.first_name} {request.user.last_name},\n\n'
+            # f'Con fecha {fecha_actual} y hora {hora_actual} te informamos que tu solicitud '
+            # f'a la actividad {actividad.nombre_actividad} ha sido recibida y será gestionada por nuestra directiva. '
+            # f'Te confirmaremos si fue aceptada o rechazada por correo.\n\n¡Muchas Gracias!\n\nSORTE',
+            # 'cuentaprueba4326@gmail.com',
+            # [request.user.email]
+            send_mail('Inscripción Aceptada', 
+                      f'Hola {request.user.first_name} tu inscripción ha sido aceptada, actualmente estas inscrito a: {actividad.nombre_actividad} \n\n'
+                      f'¡Muchas Gracias!\n\n'
+                      f'Este mensaje es generado automáticamente; le agradecemos que no responda al mismo.\n\n'
+                      f'SORTE',
+                      'cuentaprueba4326@gmail.com', 
+                      [inscripcion.miembro.email])
         
         elif decision == 'rechazar':
 
             inscripcion.estado = 'rechazada'
-            send_mail('Inscripción Rechazada', 'Tu Inscripción ha sido rechazada, por lo tanto, no puedes participar en nuestra actividad!', 'cuentaprueba4326@gmail.com', [inscripcion.miembro.email])
+            messages.success(request, f'La solicitud ha sido rechazada.')
+            send_mail('Inscripción Rechazada', 
+                      f'Hola {request.user.first_name} tu inscripción ha sido rechazada, por lo tanto, no puedes participar en nuestra actividad: {inscripcion.actividad.nombre_actividad}\n\n' 
+                      f'Por favor, no dude en ponerse en contacto con nuestro equipo de soporte ante cualquier situación que considere necesaria.\n\n'
+                      f'Este mensaje es generado automáticamente; le agradecemos que no responda al mismo.\n\n'
+                      f'SORTE\n\n',
+                      'cuentaprueba4326@gmail.com', 
+                      [inscripcion.miembro.email])
 
         inscripcion.save()
 
@@ -273,7 +293,6 @@ def gestionar_inscripciones(request):
         page_number = request.GET.get("page")
         page_obj = paginator.get_page(page_number)
     else:
-        cupos_agotados = None  # Si no hay solicitud, la variable cupos_agotados se inicializa como None
         inscripciones_pendientes = Inscripcion.objects.filter(estado='pendiente').order_by('-fecha_solicitud')
         paginator = Paginator(inscripciones_pendientes, 6)
         page_number = request.GET.get("page")
@@ -281,7 +300,28 @@ def gestionar_inscripciones(request):
 
     return render(request, 'actividades/gestionar_inscripciones.html', {
         'page_obj': page_obj,
-        'cupos_agotados': cupos_agotados,
+    })
+
+@staff_member_required
+def gestionar_inscripciones_ver(request, pk):
+    inscripcion = get_object_or_404(Inscripcion, pk=pk)
+    inscripcion_archivo = SolicitudInscripcion.objects.filter(campo_inscripcion=inscripcion)
+    print(inscripcion)
+
+    archivos_solicitud = []
+    if inscripcion_archivo:
+        for archivo_adjunto in inscripcion_archivo:
+            # Obtener el nombre del archivo después de la segunda barra
+            nombre_archivo = archivo_adjunto.archivo.name.split("/", 2)[-1]
+            archivos_solicitud.append({
+                'archivo_adjunto': archivo_adjunto,
+                'nombre_archivo': nombre_archivo,
+            })
+
+
+    return render(request, 'actividades/gestionar_inscripciones_ver.html', {
+        'inscripcion': inscripcion,
+        'archivos_solicitud': archivos_solicitud,
     })
 
 

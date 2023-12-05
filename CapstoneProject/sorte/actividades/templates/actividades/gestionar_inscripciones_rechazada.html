@@ -4,7 +4,7 @@
 
 
 {% block extrastyle %}
-  <link rel="stylesheet" href="{% static 'core/css/directivaJDV/inscripciones/inscripciones.css' %}">
+  <link rel="stylesheet" href="{% static 'core/css/directivaJDV/inscripciones/inscripcionesRechazada.css' %}">
 {% endblock extrastyle %}
   
 
@@ -82,10 +82,10 @@
                 
             {% if page_obj %}
             
-                <form class="formulario" method="GET" action="{% url 'gestionar_solicitudes_rechazada' %}">
+                <form class="formulario" method="GET" action="{% url 'gestionar_inscripciones_rechazada' %}">
                     {% if request.GET %}
                         <div class="volver">
-                            <a href="{% url 'gestionar_solicitudes_rechazada' %}" class="volver__link">
+                            <a href="{% url 'gestionar_inscripciones_rechazada' %}" class="volver__link">
                                 <img class="volver__imagen" src="{% static 'core/img/flecha-izquierda.svg' %}" alt="">
                                 <p class="volver__texto">Regresar</p>
                             </a>
@@ -112,7 +112,7 @@
             {% else %}
                 {% if request.GET %}
                     <div class="volver">
-                        <a href="{% url 'gestionar_solicitudes_rechazada' %}" class="volver__link">
+                        <a href="{% url 'gestionar_inscripciones_rechazada' %}" class="volver__link">
                             <img class="volver__imagen" src="{% static 'core/img/flecha-izquierda.svg' %}" alt="">
                             <p class="volver__texto">Regresar</p>
                         </a>

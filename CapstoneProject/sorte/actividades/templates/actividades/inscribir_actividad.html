@@ -54,7 +54,7 @@
   <h2 class="main__titular">Te estas inscribiendo en la {{ actividad.nombre_actividad }}</h2>
 
   {% if actividad.cupos_disponibles > 0 %}
-  <form id="formulario" class="formulario" method="post" action="{% url 'inscribir_actividad' actividad.pk %}"> {% csrf_token %}
+  <form id="formulario" class="formulario" method="post" action="{% url 'inscribir_actividad' actividad.pk %}" enctype="multipart/form-data"> {% csrf_token %}
 
      <div class="formulario__flex">
       
@@ -73,6 +73,11 @@
        <labe class="formulario__label"l for="id_apellido">{{ form.apellido.label }}</labe>
        {{ form.apellido }}
      </div>
+     <div class="formulario__flex">
+        <p class="formulario__nota"><span class="formulario__asterisco"> (Opcional) </span>Para saber que documentos enviar, leer requisitos de la Actividad.</p>
+        <input class="formulario__file" type="file" id="archivos" name="archivos_adjuntos" multiple>
+        <label class="formulario__label" for="archivos">Selecciona archivo/s</label>
+      </div>
      <div class="formulario__flex">
        <button type="submit" class="formulario__submit">Inscribirte</button>
        <div class="load">

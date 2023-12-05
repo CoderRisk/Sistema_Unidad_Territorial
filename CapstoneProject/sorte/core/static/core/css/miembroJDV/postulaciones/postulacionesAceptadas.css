@@ -1,0 +1,418 @@
+.main{
+    background-color: var(--color-azul-fondo);
+    color: #fff;
+}
+
+.main__contenedor{
+    display: flex;
+    flex-direction: column;
+    
+}
+
+.main__aside{
+    width: 100%;
+    border-bottom: .0625rem solid #fff;
+}
+
+.main__portal{
+    width: 100%;
+}
+
+.main__proyecto{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.main__h2{
+    text-align: center;
+    margin: 4.375rem 0;
+}
+
+.main__lista{
+    list-style: none;
+    display: flex;
+    text-align: center;
+    align-items: center;
+    margin: 4.375rem 0;
+    padding: 0;
+    width: 100%;
+    justify-content: space-between;
+    background-color: var(--color-celeste-activo);
+    border-radius: .625rem;
+}
+
+.formulario{
+    margin: 2.5rem 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+/* Volver hacia una página Anterior */
+
+.volver{
+    display: flex;
+    margin: 1.875rem 0;
+}
+
+.volver__link{
+    display: flex;
+    text-decoration: none;
+    color: var(--color-black);
+    align-items: center;
+    background-color: #fff;
+    transition: background-color .3s ease, color .3s ease;
+    border-radius: 1.25rem;
+    box-shadow: .0625rem .0625rem .5rem black;
+    padding: .3125rem;
+}
+
+.volver__link:hover{
+    background-color: var(--color-azul);
+    color: #fff;
+    transition: background-color .3s ease, color .3s ease;
+}
+
+.volver__imagen{
+    width: .625rem;
+    margin: 0 0 0 1.25rem;
+}
+
+.volver__texto{
+    margin: 0 1.875rem 0 1.875rem;
+    font-size: .75rem;
+}
+
+.formulario__contenedor{
+    display: flex;
+    justify-content: end;
+}
+
+.formulario__input{
+    border: none;
+    border-top-left-radius: .625rem;
+    border-bottom-left-radius: .625rem;
+    padding: .3125rem .1875rem;
+}
+
+.formulario__input:focus{
+    outline: none;
+}
+
+.formulario__submit{
+    border: none;
+    background-color: var(--color-azul-fondo);
+    border: .0625rem solid var(--color-white);
+    border-top-right-radius: .625rem;
+    border-bottom-right-radius: .625rem;
+    padding: .3125rem .1875rem;
+    color: var(--color-white);
+    cursor: pointer;
+}
+
+.formulario__input,
+.formulario__submit{
+    font-size: .75rem;
+}
+
+.main__postular{
+    padding: .625rem;
+    margin: 2.5rem auto;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: #3b89f74c;
+    border-radius: .625rem;
+    align-items: center;
+}
+
+.main__item{
+    margin: 0 .1875rem;
+    font-size: .625rem;
+    padding: .625rem 0;
+}
+
+.main__data{
+    font-size: .5625rem;
+    margin: 0 .1875rem;
+    padding: .625rem 0;
+}
+
+.main__data:nth-child(1){
+    overflow: auto;
+    white-space: nowrap;
+    max-width: 6.25rem;
+    padding: .0625rem;
+}
+
+.main__data:nth-child(1)::-webkit-scrollbar {
+    width: .75rem;
+    height: .1875rem;
+  }
+  
+.main__data:nth-child(1)::-webkit-scrollbar-thumb {
+    background-color: var(--color-celeste-activo);
+    border-radius: 6px;
+}
+
+.main__data:nth-child(1)::-webkit-scrollbar-track {
+    background-color: #f1f1f100;
+}
+
+.main__data:nth-child(4){
+    overflow: auto;
+    white-space: nowrap;
+    max-width: 6.25rem;
+    padding: .0625rem;
+}
+
+.main__data:nth-child(4)::-webkit-scrollbar {
+    width: .75rem;
+    height: .1875rem;
+  }
+  
+.main__data:nth-child(4)::-webkit-scrollbar-thumb {
+    background-color: var(--color-celeste-activo);
+    border-radius: 6px;
+}
+
+.main__data:nth-child(4)::-webkit-scrollbar-track {
+    background-color: #f1f1f100;
+}
+
+.main__link{
+    cursor: pointer;
+    border-radius: .625rem;
+    transition: background-color .3s ease;
+}
+
+.main__link:hover{
+    background-color: var(--color-celeste-activo);
+    border-radius: .625rem;
+    transition: background-color .3s ease;
+}
+
+.main__enlace{
+    text-decoration: none;
+    color: #fff;
+    display: block;
+    text-align: center;
+    margin: 2.5rem 0;
+    padding: 1.25rem;
+}
+
+.main__inscripciones,
+.main__postulaciones{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.solicitud__inscripcion,
+.solicitud__postulacion{
+    color: var(--color-white);
+    text-decoration: none;
+    font-size: .875rem;
+    margin: .3125rem 0;
+    display: none;
+    padding: .625rem;
+    transition: background-color .3s ease;
+    border-radius: .625rem;
+    text-align: center;
+}
+
+.solicitud__postulacion{
+    display: block;
+}
+
+.solicitud__inscripcion:hover,
+.solicitud__postulacion:hover{
+    background-color: var(--color-celeste-activo);
+    border-radius: .625rem;
+    transition: background-color .3s ease;
+}
+
+.main__postulaciones{
+    margin: 0 0 4.375rem 0;
+}
+
+.activo{
+    background-color: var(--color-celeste-activo);
+    border-radius: .625rem;
+    border: .625rem;
+}
+
+.main__paginator{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 0 4.375rem 0;
+}
+
+.main__paginador{
+    width: max-content;
+}
+
+
+.main__paginate{
+    border: .0625rem solid var(--color-celeste-activo);
+    padding: .9375rem 1.25rem;
+    margin: 0;
+    list-style: none;
+    border-radius: .625rem;
+}
+
+.main__page{
+    color: var(--color-white);
+    text-decoration: none;
+    transition: background-color .3s ease;
+    padding: .3125rem .625rem;
+    border-radius: 1.625rem;
+}
+
+.main__page:hover{
+    background-color: var(--color-celeste-activo);
+    transition: background-color .3s ease;
+}
+
+.pagina-actual{
+    background-color: var(--color-celeste-activo);
+}
+
+
+.main__no-postulado{
+    text-align: center;
+    margin: 4.375rem 0;
+}
+
+.pendiente{
+    background-color: var(--color-amarillo);
+    color: var(--color-black);
+    font-weight: 700;
+    padding: .625rem 0;
+    border-top-right-radius: .625rem;
+    border-bottom-right-radius: .625rem;
+}
+
+.aceptada{
+    background-color: var(--color-verde);
+    color: var(--color-white);
+    font-weight: 700;
+    padding: .625rem 0 ;
+    border-radius: .3125rem;
+    margin: .625rem auto;
+}
+
+.rechazada{
+    background-color: var(--color-rojo);
+    color: var(--color-white);
+    font-weight: 700;
+    padding: .625rem 0 ;
+    border-top-right-radius: .625rem;
+    border-bottom-right-radius: .625rem;
+}
+
+.main__postulacion .volver{
+    margin: 2.5rem 0;
+}
+
+@media (min-width: 400px) { 
+    .main__postular{
+        flex-direction: row;
+    }
+
+    .aceptada{
+        margin: 0;
+    }
+}
+
+@media (min-width: 576px) { 
+ 
+
+    .formulario{
+        flex-direction: row;
+    }
+}
+
+@media (min-width: 768px) { 
+    .main__contenedor{
+        flex-direction: row;
+    }
+
+    .main__aside{
+        width: 30%;
+        border-bottom: unset;
+        border-right: .0625rem solid #fff;
+        padding: 0 2.5rem 0 0;
+    }
+
+    .main__portal{
+        width: 70%;
+        padding: 0 0 0 4.375rem;
+    }
+
+    .main__lista{
+        padding: 0 2.5rem;
+        margin: unset;
+    }
+
+    .main__postular{
+        padding: 0 1.875rem;
+    }
+
+    .pendiente,
+    .aceptada,
+    .rechazada{
+        padding: .625rem  0.125rem;
+        border-top-right-radius: unset;
+        border-bottom-right-radius: unset;
+        border-radius: .1875rem;
+    }
+}
+
+@media (min-width: 1000px) { 
+    .main__item,
+    .main__data{
+
+        font-size: .875rem;
+ 
+    }
+
+    .main__lista,
+    .main__postular{
+        
+        max-width: 56.25rem;
+        
+    }
+
+    .volver{
+        margin: 0;
+    }
+
+    .formulario__input,
+    .formulario__submit{
+        font-size: .875rem;
+        padding: .625rem .3125rem;
+    }
+
+    .volver__texto{
+        font-size: .875rem;
+    }
+
+    .volver__imagen{
+        width: 1.5625rem;
+    }
+
+    
+}
+
+
+@media (min-width: 1600px) { 
+    .formulario__contenedor{
+        margin: 0 1.875rem 0 0;
+    }
+}
+

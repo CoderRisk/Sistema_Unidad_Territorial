@@ -11,6 +11,7 @@ urlpatterns = [
     path('mis_solicitudes_aceptada/', views.mis_solicitudes_miembro_aceptada, name='mis_solicitudes_miembro_aceptada'),
     path('mis_solicitudes_rechazada/', views.mis_solicitudes_miembro_rechazada, name='mis_solicitudes_miembro_rechazada'),
     path('gestionar_inscripciones/', views.gestionar_inscripciones, name='gestionar_inscripciones'),
+    path('gestionar_inscripciones_ver/<int:pk>', views.gestionar_inscripciones_ver, name='gestionar_inscripciones_ver'),
     path('gestionar_inscripciones_aceptada/', views.gestionar_inscripciones_aceptadas, name='gestionar_inscripciones_aceptada'),
     path('gestionar_inscripciones_rechazada/', views.gestionar_inscripciones_rechazadas, name='gestionar_inscripciones_rechazada'),
     path('inscribir/<int:actividad_id>/', views.inscribir_actividad, name='inscribir_actividad'),

@@ -65,63 +65,71 @@
         </div>
     
         <div class="formulario__flex">
-            <label for="id_nombre_actividad" class="formulario__label">{{ form.nombre_actividad.label }}</label>
             {{ form.nombre_actividad }}
+            <label for="id_nombre_actividad" class="formulario__label">{{ form.nombre_actividad.label }}</label>
         </div>
     
         <div class="formulario__flex">
-            <label for="id_descripcion" class="formulario__label">{{ form.descripcion.label }}</label>
             {{ form.descripcion }}
+            <label for="id_descripcion" class="formulario__label">{{ form.descripcion.label }}</label>
         </div>
     
         <div class="formulario__flex">
-            <label for="id_direccion" class="formulario__label">{{ form.direccion.label }}</label>
             {{ form.direccion }}
+            <label for="id_direccion" class="formulario__label">{{ form.direccion.label }}</label>
         </div>
     
         <div class="formulario__flex">
-            <label for="id_region" class="formulario__label">{{ form.region.label }}</label>
             {{ form.region }}
+            <label for="id_region" class="formulario__label">{{ form.region.label }}</label>
         </div>
     
         <div class="formulario__flex">
-            <label for="id_comuna" class="formulario__label">{{ form.comuna.label }}</label>
             {{ form.comuna }}
+            <label for="id_comuna" class="formulario__label">{{ form.comuna.label }}</label>
         </div>
     
         <div class="formulario__flex">
-            <label for="id_fecha_actividad" class="formulario__label">{{ form.fecha_actividad.label }}</label>
-            {{ form.fecha_actividad }}
-
-            {% if form.errors.fecha_actividad %}
-                <div class="error">
-                    <strong class="error__mensaje">Error en la Fecha de Actividad:</strong>
-                    {{ form.errors.fecha_actividad }}
-                </div>
+            <label class="formulario__label" for="id_inicio_inscripcion">{{ form.inicio_inscripcion.label }}</label>
+            <input class="formulario__input" type="datetime-local" name="{{ form.inicio_inscripcion.name }}" id="id_inicio_inscripcion" value="{{ actividades.inicio_inscripcion|date:'Y-m-d\TH:i' }}">
+            {% if form.errors.inicio_inscripcion %}
+            <div class="error">
+                <strong class="error__mensaje">Error en la Fecha de inicio de Inscripción:</strong>
+                {{ form.errors.inicio_inscripcion }}
+            </div>
             {% endif %}
         </div>
-    
-        <div class="formulario__flex">
-            <label for="id_hora_inicio" class="formulario__label">{{ form.hora_inicio.label }}</label>
-            {{ form.hora_inicio }}
 
-            {% if form.errors.hora_inicio %}
-                <div class="error">
-                    <strong class="error__mensaje">Error en la Hora de Inicio:</strong>
-                    {{ form.errors.hora_inicio }}
-                </div>
+        <div class="formulario__flex">
+            <label class="formulario__label" for="id_cierre_inscripcion">{{ form.cierre_inscripcion.label }}</label>
+            <input class="formulario__input" type="datetime-local" name="{{ form.cierre_inscripcion.name }}" id="id_cierre_inscripcion" value="{{ actividades.cierre_inscripcion|date:'Y-m-d\TH:i' }}">
+            {% if form.errors.cierre_inscripcion %}
+            <div class="error">
+                <strong class="error__mensaje">Error en la Fecha de cierre de Inscripción:</strong>
+                {{ form.errors.cierre_inscripcion }}
+            </div>
             {% endif %}
         </div>
-    
-        <div class="formulario__flex">
-            <label for="id_hora_termino" class="formulario__label">{{ form.hora_termino.label }}</label>
-            {{ form.hora_termino }}
 
-            {% if form.errors.hora_termino %}
-                <div class="error">
-                    <strong class="error__mensaje">Error en la Hora de Término:</strong>
-                    {{ form.errors.hora_termino }}
-                </div>
+        <div class="formulario__flex">
+            <label class="formulario__label" for="id_inicio_actividad">{{ form.inicio_actividad.label }}</label>
+            <input class="formulario__input" type="date" name="{{ form.inicio_actividad.name }}" id="id_inicio_actividad" value="{{ actividades.inicio_actividad|date:'Y-m-d' }}">
+            {% if form.errors.inicio_actividad %}
+            <div class="error">
+                <strong class="error__mensaje">Error en la Fecha de inicio de Actividad:</strong>
+                {{ form.errors.inicio_actividad }}
+            </div>
+            {% endif %}
+        </div>
+
+        <div class="formulario__flex">
+            <label class="formulario__label" for="id_fin_actividad">{{ form.fin_actividad.label }}</label>
+            <input class="formulario__input" type="date" name="{{ form.fin_actividad.name }}" id="id_fin_actividad" value="{{ actividades.fin_actividad|date:'Y-m-d' }}">
+            {% if form.errors.fin_actividad %}
+            <div class="error">
+                <strong class="error__mensaje">Error en la Fecha de fin de Actividad:</strong>
+                {{ form.errors.fin_actividad }}
+            </div>
             {% endif %}
         </div>
     

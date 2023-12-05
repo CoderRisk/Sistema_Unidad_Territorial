@@ -2,6 +2,8 @@
 
 {% load static %}
 
+{% load tz %}
+
 
 {% block extrastyle %}
     <link rel="stylesheet" href="{% static 'core/css/proyectos/verMasProyectos.css' %}">
@@ -72,18 +74,30 @@
             {% else %}
                 <span class="main__span">Cupos disponibles: <p class="main__fechaInicioPostulacion">{{proyecto.cupos_disponibles_proyecto}}</p></span>  
             {% endif %}
-            <span class="main__span">Fecha Inicio para postulación: <p class="main__fechaTerminoPostulacion">{{proyecto.fecha_inicio}}</p></span>
-            <span class="main__span">Fecha Término para postulación: <p class="main__cuposTotal">{{proyecto.fecha_termino}}</p></span>
+            <span class="main__span">Inicio de Postulación: <p class="main__fechaTerminoPostulacion">{{proyecto.inicio_postulacion}}</p></span>
+            <span class="main__span">Cierre de Postulación: <p class="main__cuposTotal">{{proyecto.cierre_postulacion}}</p></span>
+            <span class="main__span">Inicio del Proyecto: <p class="main__fechaTerminoPostulacion">{{proyecto.inicio_del_proyecto}}</p></span>
+            <span class="main__span">Fin del Proyecto: <p class="main__cuposTotal">{{proyecto.fin_del_proyecto}}</p></span>
             
             {% if user.is_staff %}
             
             {% elif user.is_authenticated %} 
             
-                {% if proyecto.cupos_disponibles_proyecto == 0 %}
-                    <a href="{% url 'inscribir_proyecto' proyecto.id %}" class="main__inscribirse agotado">Postular</a>
+            {% localtime on %}
+                {% now "Y-m-d H:i:s" as local_now %}
+                {% if local_now >= proyecto.inicio_postulacion|date:"Y-m-d H:i:s" and local_now <= proyecto.cierre_postulacion|date:"Y-m-d H:i:s" %}
+                    <!-- Tu código aquí -->
+                    {% if proyecto.cupos_disponibles_proyecto <= 0 %}
+                        <a href="{% url 'inscribir_proyecto' proyecto.id %}" class="main__inscribirse agotado">Agotado</a>
+                    {% else %}
+                        <a href="{% url 'inscribir_proyecto' proyecto.id %}" class="main__inscribirse">Postular</a>
+                    {% endif %}
+                {% elif local_now < proyecto.inicio_postulacion|date:"Y-m-d H:i:s"  %}
+                    <a class="main__inscribirse wait">Esperar</a>
                 {% else %}
-                    <a href="{% url 'inscribir_proyecto' proyecto.id %}" class="main__inscribirse">Postular</a>
+                    <a class="main__inscribirse desactivado">Finalizado</a>
                 {% endif %}
+            {% endlocaltime %}  
                   
             {% else %}
 

@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Proyecto, Solicitud
+from .models import Proyecto, Solicitud, SolicitudArchivo
 from .forms import ProyectoForm
 from django.views.generic import ListView, DetailView
 from django.contrib import messages
@@ -14,6 +14,7 @@ from core.models import Carousel
 from django.utils import timezone
 from django.shortcuts import HttpResponseRedirect
 from django.urls import reverse
+import re
 
 #--------------------------------------------------------------------------------------------
 
@@ -58,26 +59,26 @@ def crear_proyecto(request):
         if form.is_valid():
             proyecto = form.save(commit=False)
 
-            fecha_inicio = form.cleaned_data['fecha_inicio']
-            fecha_inicio_hora = form.cleaned_data['fecha_inicio_hora']
-            fecha_tiempo_inicio = datetime.combine(fecha_inicio, fecha_inicio_hora)
-
-            fecha_termino = form.cleaned_data['fecha_termino']
-            fecha_termino_hora = form.cleaned_data['fecha_termino_hora']
-            fecha_date_termino = datetime.combine(fecha_termino, fecha_termino_hora)
+            inicio_postulacion = form.cleaned_data['inicio_postulacion']
+            cierre_postulacion = form.cleaned_data['cierre_postulacion']
+            proyecto_en_marcha = form.cleaned_data['inicio_del_proyecto']
+            proyecto_fin_marcha = form.cleaned_data['fin_del_proyecto']
 
             # Validación personalizada para asegurarse de que la fecha de inicio sea anterior a la fecha de término
-            if fecha_inicio > fecha_termino:
-                form.add_error('fecha_inicio', 'La fecha de inicio debe ser menor a la fecha de término.')
+            if inicio_postulacion > cierre_postulacion:
+                form.add_error('inicio_postulacion', 'La fecha de inicio de postulación debe ser menor a la fecha de cierre de postulación.')
 
-            if fecha_termino < fecha_inicio:
-                form.add_error('fecha_termino', 'La fecha de término debe ser menor a la fecha de inicio.')
+            if cierre_postulacion < inicio_postulacion:
+                form.add_error('cierre_postulacion', 'La fecha de cierre de postulación debe ser menor a la fecha de inicio de postulación.')
 
-            if fecha_inicio_hora >= fecha_termino_hora:
-                form.add_error('fecha_inicio_hora', 'La hora de inicio debe ser menor a la hora de término.')
+            if proyecto_en_marcha < cierre_postulacion.date():
+                form.add_error('inicio_del_proyecto', 'La fecha de inicio del proyecto debe ser después a la fecha de cierre de postulación.')
 
-            if fecha_termino_hora <= fecha_inicio_hora:
-                form.add_error('fecha_termino_hora', 'La hora de término debe ser mayor a la hora de inicio.')
+            if proyecto_en_marcha == cierre_postulacion.date():
+                form.add_error('inicio_del_proyecto', 'La fecha del proyecto no puede ser igual al cierre de postulación.')
+            
+            if proyecto_fin_marcha < proyecto_en_marcha:
+                form.add_error('fin_del_proyecto', 'La fecha fin del proyecto debe ser mayor a la fecha de inicio del proyecto.')
 
             # Otras validaciones personalizadas aquí...
 
@@ -87,8 +88,6 @@ def crear_proyecto(request):
 
             # Resto del código...
 
-            proyecto.fecha_tiempo_inicio = fecha_tiempo_inicio
-            proyecto.fecha_date_termino = fecha_date_termino
             proyecto.save()
 
             messages.success(request, '¡El proyecto ha sido creado con éxito!')
@@ -110,30 +109,28 @@ def editar_proyecto(request, pk):
     proyectos = get_object_or_404(Proyecto, pk=pk)
     if request.method == 'POST':
         form = ProyectoForm(request.POST, request.FILES, instance=proyectos)
-        print(form.errors)
         if form.is_valid():
             
-            # Combina fecha y hora antes de guardar en el modelo
-            fecha_inicio = form.cleaned_data['fecha_inicio']
-            fecha_inicio_hora = form.cleaned_data['fecha_inicio_hora']
-            fecha_tiempo_inicio = datetime.combine(fecha_inicio, fecha_inicio_hora)
-
-            fecha_termino = form.cleaned_data['fecha_termino']
-            fecha_termino_hora = form.cleaned_data['fecha_termino_hora']
-            fecha_date_termino = datetime.combine(fecha_termino, fecha_termino_hora)
+            inicio_postulacion = form.cleaned_data['inicio_postulacion']
+            cierre_postulacion = form.cleaned_data['cierre_postulacion']
+            proyecto_en_marcha = form.cleaned_data['inicio_del_proyecto']
+            proyecto_fin_marcha = form.cleaned_data['fin_del_proyecto']
 
             # Validación personalizada para asegurarse de que la fecha de inicio sea anterior a la fecha de término
-            if fecha_inicio > fecha_termino:
-                form.add_error('fecha_inicio', 'La fecha de inicio debe ser menor a la fecha de término.')
+            if inicio_postulacion > cierre_postulacion:
+                form.add_error('inicio_postulacion', 'La fecha de inicio debe ser menor a la fecha de término.')
 
-            if fecha_termino < fecha_inicio:
-                form.add_error('fecha_termino', 'La fecha de término debe ser menor a la fecha de inicio.')
+            if cierre_postulacion < inicio_postulacion:
+                form.add_error('cierre_postulacion', 'La fecha de término debe ser menor a la fecha de inicio.')
 
-            if fecha_inicio_hora >= fecha_termino_hora:
-                form.add_error('fecha_inicio_hora', 'La hora de inicio debe ser menor a la hora de término.')
+            if proyecto_en_marcha < cierre_postulacion.date():
+                form.add_error('inicio_del_proyecto', 'La fecha del proyecto debe ser mayor a la postulación.')
 
-            if fecha_termino_hora <= fecha_inicio_hora:
-                form.add_error('fecha_termino_hora', 'La hora de término debe ser mayor a la hora de inicio.')
+            if proyecto_en_marcha == cierre_postulacion.date():
+                form.add_error('inicio_del_proyecto', 'La fecha del proyecto no puede ser igual a la postulación.')
+            
+            if proyecto_fin_marcha < proyecto_en_marcha:
+                form.add_error('fin_del_proyecto', 'La fecha fin del proyecto debe ser mayor a la fecha de inicio del proyecto.')
 
             # Otras validaciones personalizadas aquí...
 
@@ -142,8 +139,8 @@ def editar_proyecto(request, pk):
                 return render(request, 'proyectos/editar_proyecto.html', {'form': form, 'proyectos': proyectos})
 
             # Actualiza el campo en el modelo
-            proyectos.fecha_tiempo_inicio = fecha_tiempo_inicio
-            proyectos.fecha_date_termino = fecha_date_termino
+            proyectos.inicio_postulacion = inicio_postulacion
+            proyectos.cierre_postulacion = cierre_postulacion
 
             form.save()
 
@@ -199,13 +196,12 @@ def inscribir_proyecto(request, proyecto_id):
 
     if proyecto.cupos_disponibles_proyecto > 0:
         if request.method == 'POST':
-            form = PostulacionForm(request.POST)
+            form = PostulacionForm(request.POST, request.FILES)
             if form.is_valid():
                 solicitud = form.save(commit=False)
                 solicitud.proyecto = proyecto
                 solicitud.miembro = request.user
                 solicitud.estado = 'pendiente'
-                
 
                 # Verifica si el usuario ya ha postulado al proyecto
                 solicitud_existente = Solicitud.objects.filter(proyecto=proyecto, miembro=request.user).first()
@@ -215,6 +211,12 @@ def inscribir_proyecto(request, proyecto_id):
                 else:
                     solicitud.save()
                     solicitud.fecha_solicitud = datetime.now()
+
+                    archivos_adjuntos = request.FILES.getlist('archivos_adjuntos')
+
+                    for archivo in archivos_adjuntos:
+                        SolicitudArchivo.objects.create(campo_solicitud=solicitud, archivo=archivo)
+
 
                     # Disminuir cupos de proyectos
                     # proyecto.cupos_disponibles_proyecto -= 1
@@ -293,11 +295,23 @@ def gestionar_solicitudes(request):
                 messages.error(request, f'No hay más cupos disponibles.')
 
             proyecto.save()
-            send_mail('¡Solicitud Aceptada!', 'Tu solicitud ha sido aceptada, por lo tanto, puedes participar en este proyecto!', 'cuentaprueba4326@gmail.com', [solicitud.miembro.email])
+            send_mail('¡Solicitud Aceptada!', 
+                       f'Hola {request.user.first_name} tu solicitud ha sido aceptada, actualmente has postulado a: {proyecto.nombre_proyecto}\n\n'
+                      f'¡Muchas Gracias!\n\n'
+                      f'Este mensaje es generado automáticamente; le agradecemos que no responda al mismo.\n\n'
+                      f'SORTE', 
+                      'cuentaprueba4326@gmail.com', [solicitud.miembro.email])
     
         elif decision == 'rechazar':
             solicitud.estado = 'rechazada'
-            send_mail('¡Solicitud Rechazada!', 'Tu solicitud ha sido rechazada, por lo tanto, no puedes participar en este proyecto!', 'cuentaprueba4326@gmail.com', [solicitud.miembro.email])
+            messages.success(request, f'La Solicitud ha sido rechazada.')
+            send_mail('¡Solicitud Rechazada!', 
+                      f'Hola {request.user.first_name} tu solicitud ha sido rechazada, por lo tanto, no puedes participar en nuestro proyecto: {solicitud.proyecto.nombre_proyecto}\n\n' 
+                      f'Por favor, no dude en ponerse en contacto con nuestro equipo de soporte ante cualquier situación que considere necesaria.\n\n'
+                      f'Este mensaje es generado automáticamente; le agradecemos que no responda al mismo.\n\n'
+                      f'SORTE\n\n', 
+                      'cuentaprueba4326@gmail.com', 
+                      [solicitud.miembro.email])
 
         solicitud.save()
 
@@ -319,6 +333,26 @@ def gestionar_solicitudes(request):
     return render(request, 'proyectos/gestionar_solicitudes.html', {
         'solicitudes_pendientes': solicitudes_pendientes,
         'page_obj': page_obj,
+    })
+
+
+@staff_member_required
+def gestionar_solicitudes_ver(request, pk):
+    solicitud = get_object_or_404(Solicitud, pk=pk)
+    solicitud_archivo = SolicitudArchivo.objects.filter(campo_solicitud=solicitud)
+
+    archivos_solicitud = []
+    for archivo_adjunto in solicitud_archivo:
+        # Obtener el nombre del archivo después de la segunda barra
+        nombre_archivo = archivo_adjunto.archivo.name.split("/", 2)[-1]
+        archivos_solicitud.append({
+            'archivo_adjunto': archivo_adjunto,
+            'nombre_archivo': nombre_archivo,
+        })
+
+    return render(request, 'proyectos/gestionar_solicitudes_ver.html', {
+        'solicitud': solicitud,
+        'archivos_solicitud': archivos_solicitud,
     })
 
 

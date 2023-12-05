@@ -118,14 +118,41 @@
 }
 
 .main__postular{
-    padding: 0;
+    padding: .625rem;
     margin: 2.5rem auto;
     list-style: none;
     display: flex;
+    flex-direction: column;
+    flex-direction: column;
     justify-content: space-between;
     background-color: #3b89f74c;
     border-radius: .625rem;
     align-items: center;
+    position: relative;
+}
+
+.main__ver{
+    position: absolute;
+    width: min-content;
+    height: min-content;
+    left: .625rem;
+    top: -0.9375rem;
+    background-color: var(--color-azul);
+    padding: .1875rem;
+    display: flex;
+    align-items: center;
+    border-radius: .3125rem;
+}
+
+.ver{
+    fill: var(--color-white);
+    transition: transform .3s ease;
+}
+
+.main__ver:hover{
+    cursor: pointer;
+    transform: scale(1.1);
+    transition: transform .3s ease;
 }
 
 .main__item{
@@ -140,10 +167,56 @@
     padding: .625rem 0;
 }
 
+.main__data:nth-child(2){
+    overflow: auto;
+    white-space: nowrap;
+    max-width: 6.25rem;
+    padding: .0625rem;
+}
+
+.main__data:nth-child(2)::-webkit-scrollbar {
+    width: .75rem;
+    height: .1875rem;
+  }
+  
+.main__data:nth-child(2)::-webkit-scrollbar-thumb {
+    background-color: var(--color-celeste-activo);
+    border-radius: 6px;
+}
+
+.main__data:nth-child(2)::-webkit-scrollbar-track {
+    background-color: #f1f1f100;
+}
+
+.main__data:nth-child(5){
+    overflow: auto;
+    white-space: nowrap;
+    max-width: 6.25rem;
+    padding: .0625rem;
+}
+
+.main__data:nth-child(5)::-webkit-scrollbar {
+    width: .75rem;
+    height: .1875rem;
+  }
+  
+.main__data:nth-child(5)::-webkit-scrollbar-thumb {
+    background-color: var(--color-celeste-activo);
+    border-radius: 6px;
+}
+
+.main__data:nth-child(5)::-webkit-scrollbar-track {
+    background-color: #f1f1f100;
+}
+
+
+
+
 .main__botones{
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     gap: .3125rem;
+    margin: .625rem auto;
 }
 
 .main__aceptar,
@@ -321,6 +394,18 @@
     border-bottom-right-radius: .625rem;
 }
 
+@media (min-width: 400px) { 
+    .main__postular{
+        flex-direction: row;
+        padding: 0;
+    }
+
+    .main__botones{
+        flex-direction: row;
+        margin: 0;
+    }
+}
+
 @media (min-width: 576px) { 
     .main__botones{
         flex-direction: row;
@@ -355,6 +440,7 @@
 
     .main__postular{
         padding: 0 1.875rem;
+        justify-content: space-around;
     }
 
     .pendiente,

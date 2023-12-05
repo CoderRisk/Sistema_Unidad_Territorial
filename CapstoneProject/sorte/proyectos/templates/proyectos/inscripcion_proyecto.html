@@ -54,7 +54,7 @@
     <h2 class="main__titular">Postular en {{ proyecto.nombre_proyecto }}</h2>
 
     {% if proyecto.cupos_disponibles_proyecto > 0 %}
-    <form id="formulario" class="formulario" method="POST" action="{% url 'inscribir_proyecto' proyecto.pk %}"> {% csrf_token %}
+    <form id="formulario" class="formulario" method="POST" action="{% url 'inscribir_proyecto' proyecto.pk %}" enctype="multipart/form-data"> {% csrf_token %}
         <div class="formulario__flex">
 
             
@@ -73,6 +73,11 @@
         <div class="formulario__flex">
             <label class="formulario__label" for="id_apellido">{{ form.apellido.label }}</label>
             {{ form.apellido }}
+        </div>
+        <div class="formulario__flex">
+            <p class="formulario__nota"><span class="formulario__asterisco">* (Obligatorio) </span>Para saber que documentos enviar, leer requisitos del proyecto.</p>
+            <input class="formulario__file" type="file" id="archivos" name="archivos_adjuntos" multiple>
+            <label class="formulario__label" for="archivos">Selecciona archivo/s</label>
         </div>
         <div class="formulario__flex">
             <button type="submit" class="formulario__submit">Postular</button>
